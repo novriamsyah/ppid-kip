@@ -38,7 +38,7 @@
                                     </div>
                                 </form>
                                 <div class="new-account mt-3">
-                                    <p>Belum punya Akun? <a class="text-primary" href="./page-register.html">Daftar</a></p>
+                                    <p>Belum punya Akun? <a class="text-primary" href="{{route('auth.register')}}">Daftar</a></p>
                                 </div>
                             </div>
                         </div>

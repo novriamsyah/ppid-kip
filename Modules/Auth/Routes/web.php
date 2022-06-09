@@ -12,6 +12,6 @@
 */
 
 Route::prefix('auth')->group(function() {
-    Route::get('/login', 'AuthController@halaman_login');
-    Route::get('/register', 'AuthController@halaman_register');
+    Route::get('/login', 'AuthController@halaman_login')->name('auth.login');
+    Route::get('/register', 'AuthController@halaman_register')->name('auth.register');
 });

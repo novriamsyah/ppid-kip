@@ -31,7 +31,7 @@
                                     </div>
                                 </form>
                                 <div class="new-account mt-3">
-                                    <p>Sudah memiliki akun? <a class="text-primary" href="page-login.html">Masuk</a></p>
+                                    <p>Sudah memiliki akun? <a class="text-primary" href="{{route('auth.login')}}">Masuk</a></p>
                                 </div>
                             </div>
                         </div>
