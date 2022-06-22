@@ -28,9 +28,11 @@ class AuthController extends Controller
     {
     	if(Auth::attempt($request->only('email', 'password')))
     	{
+
+            // dd(Auth::user()->role);
     		return redirect('/dashboard');
     	}
-        Session::flash('gagal_login', 'Maaf username atau password anda salah');
+        // Session::flash('gagal_login', 'Maaf username atau password anda salah');
     	return redirect('/auth/login');
     }
 

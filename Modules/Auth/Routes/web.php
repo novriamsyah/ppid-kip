@@ -18,16 +18,16 @@ Route::prefix('auth')->group(function() {
     Route::get('/logout', 'AuthController@prosesLogout');
 });
 
+// Route::get('/exam', 'HalDashboardController@home'); 
 
-
-Route::group(['middleware' => ['auth', 'auth2:superadmin']], function(){
-    // => Halaman Profil
+Route::group(['middleware' => ['auth2:super_admin']], function(){
     Route::get('/dashboard', 'HalDashboardController@home'); 
+    Route::get('/s_admin', 'HalDashboardController@s_admin');
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:superadmin,admin']], function(){
-    // => Halaman Profil
-        // Route::get('/admin', 'HalDashboardController@home');
+Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
+        Route::get('/dashboard', 'HalDashboardController@home'); 
+        Route::get('/admin', 'HalDashboardController@admin');
 });
 
 

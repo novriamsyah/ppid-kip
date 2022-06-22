@@ -29,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
+        // $router->middlewareGroup('auth2', [\Modules\Auth\Http\Middleware\CheckRole::class]);
+
         app()->make('router')->aliasMiddleware('auth2', \Modules\Auth\Http\Middleware\CheckRole::class);
     }
 

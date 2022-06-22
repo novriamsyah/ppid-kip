@@ -14,27 +14,27 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    // public function handle(Request $request, Closure $next)
-    // {   
-    //     $roles = array_slice(func_get_args(), 2);
+    public function handle(Request $request, Closure $next)
+    {   
+        $roles = array_slice(func_get_args(), 2);
 
-    //     foreach ($roles as $role) {
-    //         $user = \Auth::user()->role;
+        foreach ($roles as $role) {
+            $user = \Auth::user()->role;
 
-    //         if ($user == $role) {
-    //             return $next($request);
-    //         }
-    //     }
-    //     return back();
-    // }
-
-    public function handle($request, Closure $next,...$roles)
-    {
-        if(in_array($request->user()->role, $roles))
-        {
-            return $next($request);
+            if ($user == $role) {
+                return $next($request);
+            }
         }
-
         return back();
     }
+
+    // public function handle($request, Closure $next,...$roles)
+    // {
+    //     if(in_array($request->user()->role, $roles))
+    //     {
+    //         return $next($request);
+    //     }
+
+    //     return back();
+    // }
 }
