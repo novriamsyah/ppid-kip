@@ -13,14 +13,17 @@
                                     <a href="index.html"><img src="{{ asset('assets/images/logo-ki.png') }}" alt=""  style="width: 300px; height:110px;"></a>
                                 </div>
                                 <h4 class="text-center mb-4">Masuk Ke Akun Anda</h4>
-                                <form action="index.html">
+                                <form action="{{ route('auth.verifikasi') }}" method="POST" name="form_login">
+
+                                    @csrf
+
                                     <div class="mb-3">
                                         <label class="mb-1"><strong>Email</strong></label>
-                                        <input type="email" class="form-control" value="hallo@contoh.com">
+                                        <input type="email" name="email" class="form-control" value="hallo@contoh.com" required autocomplete="email" autofocus>
                                     </div>
                                     <div class="mb-3">
                                         <label class="mb-1"><strong>Password</strong></label>
-                                        <input type="password" class="form-control" value="Password">
+                                        <input type="password" name="password" class="form-control" value="Password" required autocomplete="current-password">
                                     </div>
                                     <div class="row d-flex justify-content-between mt-4 mb-2">
                                         <div class="mb-3">

@@ -1,8 +1,6 @@
 @extends('auth::layouts.master')
 
 @section('content')
-    @if (auth()->user()->role == "superadmin")
-    
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -14,5 +12,4 @@
             </div>
         </div>
     </div>
-    @endif
 @endsection

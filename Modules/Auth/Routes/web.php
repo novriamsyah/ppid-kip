@@ -13,5 +13,21 @@
 
 Route::prefix('auth')->group(function() {
     Route::get('/login', 'AuthController@halaman_login')->name('auth.login');
-    Route::get('/register', 'AuthController@halaman_register')->name('auth.register');
+    Route::post('/register', 'AuthController@halaman_register')->name('auth.register');
+    Route::post('/login_verifikasi', 'AuthController@verifikasiLogin')->name('auth.verifikasi');
+    Route::get('/logout', 'AuthController@prosesLogout');
 });
+
+
+
+Route::group(['middleware' => ['auth', 'auth2:superadmin']], function(){
+    // => Halaman Profil
+    Route::get('/dashboard', 'HalDashboardController@home'); 
+});
+
+Route::group(['middleware' => ['auth', 'checkRole:superadmin,admin']], function(){
+    // => Halaman Profil
+        // Route::get('/admin', 'HalDashboardController@home');
+});
+
+
