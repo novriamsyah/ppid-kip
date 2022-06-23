@@ -1,5 +1,11 @@
 @extends('auth::layouts.master')
 
+@section('css')
+
+<link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+    
+@endsection
+
 @section('content')
 <div class="row page-titles">
     <ol class="breadcrumb">
@@ -16,7 +22,7 @@
             </div>
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{url('/simpan_user')}}" method="POST" enctype="multipart/form-data" novalidate >
+                    <form class="needs-validation" action="{{url('/simpan_user')}}" method="POST" enctype="multipart/form-data" name="pengguna_baru_form" novalidate >
 
                         @csrf
                         
@@ -60,7 +66,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="default-select wide form-control" id="val-role" name="role">
-                                            <option  data-display="Select">-- Pilih Posisi --</option>
+                                            <option value="">-- Pilih Posisi --</option>
                                             <option value="super_admin">super_admin</option>
                                             <option value="admin_ver">admin</option>
                                         </select>
@@ -82,4 +88,58 @@
     </div>
 </div>
     
+@endsection
+@section('script')
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
+
+<script type="text/javascript">
+    @if ($message = Session::get('tidak_tersimpan'))
+    toastr.warning("{{ $message }}","Peringatan !", {
+        timeOut:5e3,
+        closeButton:!0,
+        debug:!1,
+        newestOnTop:!0,
+        progressBar:!0,
+        positionClass:"toast-bottom-right",
+        preventDuplicates:!0,
+        onclick:null,
+        showDuration:"300",
+        hideDuration:"1000",
+        extendedTimeOut:"1000",
+        showEasing:"swing",
+        hideEasing:"linear",
+        showMethod:"fadeIn",
+        hideMethod:"fadeOut",
+        tapToDismiss:!1
+    });
+    @endif
+    $(function() {
+      $("form[name='pengguna_baru_form']").validate({
+        rules: {
+          name: "required",
+          email: {
+            required: true,
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          role: "required"
+        },
+        messages: {
+          name: "<span style='color: red;'>Nama tidak boleh kosong</span>",
+          email: "<span style='color: red;'>Email tidak boleh kosong</span>",
+          password: {
+            required: "<span style='color: red;'>Password tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Kata sandi harus lebih dari 5 karakter</span>"
+          },
+          role: "<span style='color: red;'>Silakan pilih posisi</span>"
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+    });
+</script>
 @endsection

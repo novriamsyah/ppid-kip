@@ -19,6 +19,7 @@
 	
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/iconfav.png') }}" />
+    <link href="{{ asset('assets/vendor/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
 </head>
@@ -35,17 +36,22 @@
                                         <a href="index.html"><img src="{{ asset('assets/images/logo-ki.png') }}" alt=""  style="width: 300px; height:110px;"></a>
                                     </div>
                                     <h4 class="text-center mb-4">Masuk Ke Akun Anda</h4>
+                                    @if($message = Session::get('gagal_login'))
+                                    <div class="alert alert-danger alert-dismissible fade show" style="margin-top: 15px; margin-bottom: -20px;">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                        </button> <strong>Peringatan!</strong> {{ $message }}</div>
+                                    @endif
                                     <form action="{{ route('auth.verifikasi') }}" method="POST" name="form_login">
     
                                         @csrf
     
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Email</strong></label>
-                                            <input type="email" name="email" class="form-control" value="hallo@contoh.com" required autocomplete="email" autofocus>
+                                            <input type="email" name="email" class="form-control" required autocomplete="email" autofocus>
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
-                                            <input type="password" name="password" class="form-control" value="Password" required autocomplete="current-password">
+                                            <input type="password" name="password" class="form-control" required autocomplete="current-password">
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
                                             <div class="mb-3">
@@ -74,10 +80,51 @@
         </div>
     </div>
 
-
+    <script src="{{ asset('assets/vendor/common/common.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/global/global.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login/custom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login/settings.js') }}"></script>
+    <script src="{{ asset('assets/js/login/gleek.js') }}"></script>
     <script src="{{ asset('assets/js/dlabnav-init.js') }}"></script>
 	<script src="{{ asset('assets/js/styleSwitcher.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.form-validator.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/sweetalert/js/sweetalert.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $( document ).on( 'focus', ':input', function(){
+                $( this ).attr( 'autocomplete', 'off' );
+            });
+        });
+        $(function() {
+          $("form[name='form_login']").validate({
+            rules: {
+              email: {
+                required: true,
+                email: true
+              },
+              password: {
+                required: true,
+                minlength: 5
+              }
+            },
+            messages: {
+              email: "<span style='color: red;'>Email tidak boleh kosong dan format email harus sesuai</span>",
+              password: "<span style='color: red;'>Password tidak boleh kosong</span>"
+            },
+            submitHandler: function(form) {
+              form.submit();
+            }
+          });
+        });
+        @if ($message = Session::get('tersimpan'))
+        swal(
+            "Berhasil!",
+            "{{ $message }}",
+            "success"
+        )
+        @endif
+    </script>
 </body>
 </html>
+
+

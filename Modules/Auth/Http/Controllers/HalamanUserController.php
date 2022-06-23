@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Http\Controllers;
 
-use session;
+use Session;
 use Modules\Auth\Entities\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -41,15 +41,23 @@ class HalamanUserController extends Controller
      */
     public function simpanUser(Request $req)
     {
-        $users = new User;
-        $users->name = $req->name;
-        $users->email = $req->email;
-        $users->password = Hash::make($req->password);
-        $users->remember_token = Str::random(60);
-        $users->role = $req->role;
-        $users->save();
+        $cek_email = User::where('email', '=', $req->email)->count();
+        if($cek_email ==1) {
+            Session::flash('tidak_tersimpan', 'Maff email telah digunakan');
+            return redirect('/tambah_user');
+        } else {
+            $users = new User;
+            $users->name = $req->name;
+            $users->email = $req->email;
+            $users->password = Hash::make($req->password);
+            $users->remember_token = Str::random(60);
+            $users->role = $req->role;
+            $users->save();
+            
+            Session::flash('tersimpan', 'pengguna baru berhasil ditambahkan');
+            return redirect('/kelola_user');
+        }
         
-        return redirect('/kelola_user');
     }
 
     /**
@@ -81,13 +89,22 @@ class HalamanUserController extends Controller
      */
     public function ubahUser(Request $req, $id)
     {
-        $user = User::find($id);
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->role = $req->role;
-        $user->save();
+        $cek_email1 = User::where('email', '=', $req->email)->count();
+        $cek_email2 = User::find($id);
+        if($req->email == $cek_email2->email || $cek_email1 == 0) {
+            $user = User::find($id);
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->role = $req->role;
+            $user->save();
+            
+            Session::flash('terubah', 'Data user berhasil diubah');
+            return redirect('/kelola_user');
+        } else {
+            Session::flash('tidak_terubah', 'Maaf email telah digunakan');
+            return redirect()->back();
+        }
         
-        return redirect('/kelola_user');
 
     }
 
@@ -101,6 +118,7 @@ class HalamanUserController extends Controller
         $user = User::find($id);
         $user->delete();
 
+        Session::flash('terhapus', 'Data user berhasil dihapus');
         return redirect('/kelola_user');        
     }
 }

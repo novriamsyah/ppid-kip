@@ -16,7 +16,7 @@
             </div>
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{url('/ubah_user/'.$id)}}" method="POST" enctype="multipart/form-data" novalidate >
+                    <form class="needs-validation" action="{{url('/ubah_user/'.$id)}}" method="POST" name="edit_pengguna_form" enctype="multipart/form-data" novalidate >
 
                         @csrf
                         
@@ -76,4 +76,59 @@
     </div>
 </div>
     
+@endsection
+
+@section('script')
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
+
+<script type="text/javascript">
+    @if ($message = Session::get('tidak_tersimpan'))
+    toastr.warning("{{ $message }}","Peringatan !", {
+        timeOut:5e3,
+        closeButton:!0,
+        debug:!1,
+        newestOnTop:!0,
+        progressBar:!0,
+        positionClass:"toast-bottom-right",
+        preventDuplicates:!0,
+        onclick:null,
+        showDuration:"300",
+        hideDuration:"1000",
+        extendedTimeOut:"1000",
+        showEasing:"swing",
+        hideEasing:"linear",
+        showMethod:"fadeIn",
+        hideMethod:"fadeOut",
+        tapToDismiss:!1
+    });
+    @endif
+    $(function() {
+      $("form[name='edit_pengguna_form']").validate({
+        rules: {
+          name: "required",
+          email: {
+            required: true,
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          role: "required",
+        },
+        messages: {
+          name: "<span style='color: red;'>Nama tidak boleh kosong</span>",
+          email: "<span style='color: red;'>Email tidak boleh kosong</span>",
+          password: {
+            required: "<span style='color: red;'>Password tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Kata sandi harus lebih dari 5 karakter</span>"
+          },
+          role: "<span style='color: red;'>Silakan pilih posisi</span>",
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+    });
+</script>
 @endsection
