@@ -21,6 +21,7 @@ class HalamanUserController extends Controller
     public function halamanUser()
     {
         $users = User::all();
+        // dd($users);
         return view('auth::halaman_user.halaman_user', compact('users'));
     }
 
@@ -66,9 +67,10 @@ class HalamanUserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function editUser($id)
     {
-        return view('auth::edit');
+        $users = User::find($id);
+        return view('auth::halaman_user.halaman_edit_user', compact('id', 'users'));
     }
 
     /**
@@ -77,9 +79,16 @@ class HalamanUserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function ubahUser(Request $req, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->role = $req->role;
+        $user->save();
+        
+        return redirect('/kelola_user');
+
     }
 
     /**
@@ -87,8 +96,11 @@ class HalamanUserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function hapusUser($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/kelola_user');        
     }
 }

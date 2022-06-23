@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth2:super_admin']], function(){
     Route::get('/lihat_user/{id}', 'HalamanUserController@lihatUser');
     Route::get('/edit_user/{id}', 'HalamanUserController@editUser');
     Route::post('/ubah_user/{id}', 'HalamanUserController@ubahUser');
-    Route::get('/hapus_user/{id}', 'HalamanUserController@editUser');
+    Route::get('/hapus_user/{id}', 'HalamanUserController@hapusUser');
 
 });
 
@@ -36,7 +36,9 @@ Route::group(['middleware' => ['auth2:super_admin']], function(){
 //================================= Akeses Admin ============================================
 Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::get('/dashboard', 'HalDashboardController@halaman_dashboard'); 
-
+    Route::get('/kelola_profil', 'HalProfilController@halamanProfil'); 
+    Route::post('/update_profil', 'HalProfilController@updateProfil'); 
+    Route::post('/ubah_password/{id}', 'HalProfilController@ubahPassword'); 
 });
 
 

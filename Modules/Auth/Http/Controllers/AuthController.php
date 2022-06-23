@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function prosesLogout()
     {
     	Auth::logout();
-    	return redirect('auth/login');
+    	return redirect('/auth/login');
     }
 
     public function halaman_register()
