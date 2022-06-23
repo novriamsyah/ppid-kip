@@ -36,10 +36,17 @@
                                         <a href="index.html"><img src="{{ asset('assets/images/logo-ki.png') }}" alt=""  style="width: 300px; height:110px;"></a>
                                     </div>
                                     <h4 class="text-center mb-4">Masuk Ke Akun Anda</h4>
+                                    
                                     @if($message = Session::get('gagal_login'))
-                                    <div class="alert alert-danger alert-dismissible fade show" style="margin-top: 15px; margin-bottom: -20px;">
+                                    {{-- <div class="alert alert-danger alert-dismissible fade show" style="margin-top: 15px; margin-bottom: -20px;">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-                                        </button> <strong>Peringatan!</strong> {{ $message }}</div>
+                                        </button> <strong>Peringatan!</strong> {{ $message }}</div> --}}
+                                        <div class="alert alert-danger solid alert-end-icon alert-dismissible fade show" style="margin-top: 15px; margin-bottom: 4px;">
+                                            <span><i class="mdi mdi-help"></i></span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close" aria-hidden="true">
+                                            </button>
+                                            <strong>Peringatan!</strong> {{ $message }}
+                                        </div>
                                     @endif
                                     <form action="{{ route('auth.verifikasi') }}" method="POST" name="form_login">
     
