@@ -18,16 +18,25 @@ Route::prefix('auth')->group(function() {
     Route::get('/logout', 'AuthController@prosesLogout');
 });
 
-// Route::get('/exam', 'HalDashboardController@home'); 
 
+
+//================================= Akeses super_admin ======================================
 Route::group(['middleware' => ['auth2:super_admin']], function(){
-    Route::get('/dashboard', 'HalDashboardController@home'); 
-    Route::get('/s_admin', 'HalDashboardController@s_admin');
+    Route::get('/kelola_user', 'HalamanUserController@halamanUser');
+    Route::get('/tambah_user', 'HalamanUserController@tambahUser');
+    Route::post('/simpan_user', 'HalamanUserController@simpanUser');
+    Route::get('/lihat_user/{id}', 'HalamanUserController@lihatUser');
+    Route::get('/edit_user/{id}', 'HalamanUserController@editUser');
+    Route::post('/ubah_user/{id}', 'HalamanUserController@ubahUser');
+    Route::get('/hapus_user/{id}', 'HalamanUserController@editUser');
+
 });
 
+
+//================================= Akeses Admin ============================================
 Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
-        Route::get('/dashboard', 'HalDashboardController@home'); 
-        Route::get('/admin', 'HalDashboardController@admin');
+    Route::get('/dashboard', 'HalDashboardController@halaman_dashboard'); 
+
 });
 
 
