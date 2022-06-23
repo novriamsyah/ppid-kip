@@ -12,9 +12,9 @@ class HalProfilController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function halamanProfil()
     {
-        return view('auth::index');
+        return view('auth::halaman_profil');
     }
 
     /**
