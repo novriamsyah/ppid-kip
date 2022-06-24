@@ -75,12 +75,12 @@
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
-							<li class="nav-item d-flex align-items-center">
+							{{-- <li class="nav-item d-flex align-items-center">
 								<div class="input-group search-area">
 									<input type="text" class="form-control" placeholder="Search here...">
 									<span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
 								</div>
-							</li>
+							</li> --}}
 							<li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                     <img src="{{ asset('assets/images/user.jpg')}}" width="20" alt=""/>
@@ -127,6 +127,17 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="{{url('/kelola_user')}}">Kelola User</a></li>
+                        </ul>
+                    </li>
+					@endif
+					@if (auth()->user()->role == "super_admin" || auth()->user()->role == "admin_ver")
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+						<i class="fas fa-info-circle"></i>
+							<span class="nav-text">Master Data</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{url('/kelola_pemohon')}}">Jenis Pemohon</a></li>
+							<li><a href="{{url('/kelola_identitas')}}">Jenis Identitas</a></li>
                         </ul>
                     </li>
 					@endif

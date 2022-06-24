@@ -61,22 +61,22 @@
                                             <input type="password" name="password" class="form-control" required autocomplete="current-password">
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                <div class="form-check custom-checkbox ms-1">
                                                     <input type="checkbox" class="form-check-input" id="basic_checkbox_1">
                                                     <label class="form-check-label" for="basic_checkbox_1">Ingat saya</label>
                                                 </div>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> --}}
+                                            {{-- <div class="mb-3">
                                                 <a href="page-forgot-password.html">Lupa Password?</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Belum punya Akun? <a class="text-primary" href="{{route('auth.register')}}">Daftar</a></p>
+                                        <p>Belum punya Akun? <a class="text-primary" href="#">Daftar</a></p>
                                     </div>
                                 </div>
                             </div>
