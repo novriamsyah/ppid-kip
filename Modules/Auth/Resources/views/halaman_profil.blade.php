@@ -1,66 +1,41 @@
 @extends('auth::layouts.master')
 
+@section('css')
+<link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+<link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+	<style>
+	.role-primary {
+		color: #7571f9;
+		border: 1px solid #7571f9;
+		font-weight: bold;
+	}
+	.role-success {
+		color: #6fd96f;
+		border: 1px solid #6fd96f;
+		font-weight: bold;
+	}
+	</style>
+@endsection
+
 @section('content')
-
-{{-- <div class="container-fluid">
-    <div class="row page-titles">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profil User</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Detail Profil</a></li>
-        </ol>
-    </div>
-    <!-- row -->
-    <div class="row">
-        <div class="col-xl-6 col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Detail Profil User</h4>
-                </div>
-                <div class="card-body">
-                    <div class="basic-form">
-                        <form>
-
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" placeholder="1234 Main St">
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
     <div class="row">
     	<div class="col-lg-12">
         	<div class="card">
                 <div class="card-body">
+					<h2>My Profile</h2>
                 	<form method="POST" enctype="multipart/form-data" class="form_edit_identitas">
                 		@csrf
 	                	<div class="row">
 	                		<div class="col-md-4 d-flex justify-content-start">
 	                			<div class="identitas ml-4">
-	                				<p class="text-dark font-weight-bold ubah_nama_text" style="font-size: 18px;">{{ auth()->user()->name }}</p>
+	                				<p class="text-dark font-weight-bold ubah_nama_text" style="font-size: 16px;">Nama : {{ auth()->user()->name }}</p>
 	                				<input type="text" name="ubah_nama_input" class="ubah_nama_input mb-3" value="{{ auth()->user()->name }}" hidden="">
+									<p class="text-dark font-weight-bold ubah_nama_text" style="font-size: 16px;">Email: {{ auth()->user()->email }}</p>
 	                				@if(auth()->user()->role == 'super_admin')
-	                				<div class="btn btn-sm font-weight-bold role-danger" style="margin-top: -10px;">{{ auth()->user()->role }}</div>
+	                				<div class="btn btn-sm font-weight-bold role-success" style="margin-top: -10px;">{{ auth()->user()->role }}</div>
 	                				@else
 	                				<div class="btn btn-sm font-weight-bold role-primary" style="margin-top: -10px;">{{ auth()->user()->role }}</div>
                                     @endif
-	                			</div>
-	                		</div>
-	                		<div class="col-md-8">
-	                			<div class="text-right position-static">
-	                				<button type="button" style="border: 0px; background-color: #fff;" class="btn text-primary edit_identitas_btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-	                				<button type="submit" style="border: 0px; background-color: #fff;" class="btn text-primary update_identitas_btn" hidden=""><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 	                			</div>
 	                		</div>
 	                	</div>
@@ -69,29 +44,92 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    	<div class="col-md-4">
-    		<div class="card">
-    			<div class="card-body">
-    				<h4 class="card-title">Ubah Password</h4>
-    				<hr>
-    				<form method="POST" class="ubah_password_form">
-    					@csrf
-    					<div class="form-row">
-    						<div class="form-group col-12">
-	    						<input type="password" name="old_password" class="form-control form-control-xs" placeholder="Password lama">
-	    					</div>
-	    					<div class="form-group col-12">
-	    						<input type="password" name="new_password" class="form-control form-control-xs" placeholder="Password baru">
-	    					</div>
-	    					<div class="form-group col-12">
-	    						<button class="btn btn-primary font-weight-bold btn-flat btn-block" type="submit" style="font-size: 12px;">Ubah Password</button>
-	    					</div>
-    					</div>
-    				</form>
-    			</div>
-    		</div>
-    	</div>
-    </div>
+	<div class="row">
+		<div class="col-xl-6 col-lg-6">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Ubah Password</h4>
+				</div>
+				<div class="card-body">
+					<div class="basic-form">
+						<form method="POST" class="ubah_password_form">
+							@csrf
+							<div class="mb-3">
+								<input type="password" name="old_password" class="form-control input-default " placeholder="Password lama">
+							</div>
+							<div class="mb-3">
+								<input type="password" name="new_password" class="form-control input-rounded" placeholder="Password baru">
+							</div>
+							<div class="mb-3">
+								<button type="submit" class="btn btn-primary font-weight-bold btn-flat btn-block" style="font-size: 12px;">ubah Password</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     
+@endsection
+
+@section('script')
+
+<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
+<script>
+@if ($message = Session::get('terubah'))
+swal(
+    "Berhasil!",
+    "{{ $message }}",
+    "success"
+);
+@endif
+$('.ubah_password_form').submit(function(e){
+	e.preventDefault();
+	var request = new FormData(this);
+	$.ajax({
+		url: "{{ url('/ubah_password/' . auth()->user()->id) }}",
+		method: "POST",
+		data: request,
+		contentType: false,
+		cache: false,
+		processData: false,
+		success:function(data){
+			if(data == 'sukses'){
+				swal({
+					title: "Berhasil!",
+				    text: "Password berhasil diubah",
+				    type: "success"
+				}, function(){
+					window.open("{{ url('/kelola_profil') }}", "_self");
+				});
+			}else{
+				gagalPassword();
+			}
+		}
+	});
+});
+function gagalPassword(){
+	toastr.warning("Password lama tidak sesuai","Peringatan !", {
+	    timeOut:5e3,
+	    closeButton:!0,
+	    debug:!1,
+	    newestOnTop:!0,
+	    progressBar:!0,
+	    positionClass:"toast-bottom-right",
+	    preventDuplicates:!0,
+	    onclick:null,
+	    showDuration:"300",
+	    hideDuration:"1000",
+	    extendedTimeOut:"1000",
+	    showEasing:"swing",
+	    hideEasing:"linear",
+	    showMethod:"fadeIn",
+	    hideMethod:"fadeOut",
+	    tapToDismiss:!1
+	});
+}
+</script>
 @endsection

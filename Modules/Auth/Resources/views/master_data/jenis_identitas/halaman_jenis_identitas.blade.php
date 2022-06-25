@@ -4,7 +4,7 @@
 <div class="row page-titles">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="javascript:void(0)">Master Data</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Kelola Jenis Pemohon</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Kelola Jenis Identitas</a></li>
     </ol>
 </div>
 <!-- row -->
@@ -13,11 +13,11 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Kelola Jenis Pemohon</h4>
-                <a href="{{url('/tambah_pemohon')}}"><button type="button" class="btn btn-primary tambah_pengguna_btn">Tambah Data <span class="btn-icon-right"><i class="fa fa-plus"></i></span> </button></a>
+                <h4 class="card-title">Kelola Jenis Identitas</h4>
+                <a href="{{url('/tambah_identitas')}}"><button type="button" class="btn btn-primary tambah_pengguna_btn">Tambah Data <span class="btn-icon-right"><i class="fa fa-plus"></i></span> </button></a>
             </div>
             <div class="card-body">
-                @if ($j_pemohon->count() == 0)
+                @if ($j_identitas->count() == 0)
                     <h6>Data Belum ditambahakan, silahkan klik tambah data!!</h6>
                 @else
                 <div class="table-responsive">
@@ -25,16 +25,16 @@
                         <thead>
                             <tr>
                                 <th style="width:80px;"><strong>No.</strong></th>
-                                <th><strong>Jenis Pemohon</strong></th>
+                                <th><strong>Jenis Identitas</strong></th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $number = 1 ?>
-                            @foreach ($j_pemohon as $pemohon)
+                            @foreach ($j_identitas as $identitas)
                                 <tr>
                                     <td><strong>{{$number}}</strong></td>
-                                    <td>{{$pemohon->jenis_pemohon}}</td>
+                                    <td>{{$identitas->jenis_identitas}}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-dark light sharp" data-bs-toggle="dropdown">
@@ -42,8 +42,8 @@
                                             </button>
                                              
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{url('/edit_pemohon/'.$pemohon->id)}}">Edit</a>
-                                                <a class="dropdown-item" href="{{url('/hapus_pemohon/'.$pemohon->id)}}">Delete</a>
+                                                <a class="dropdown-item" href="{{url('/edit_identitas/'.$identitas->id)}}">Edit</a>
+                                                <a class="dropdown-item" href="{{url('/hapus_identitas/'.$identitas->id)}}">Delete</a>
                                             </div> 
                                         </div>
                                     </td>

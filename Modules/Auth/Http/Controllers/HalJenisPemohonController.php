@@ -2,6 +2,7 @@
 
 namespace Modules\Auth\Http\Controllers;
 
+use Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -42,7 +43,7 @@ class HalJenisPemohonController extends Controller
             return redirect('/tambah_pemohon');
         } else {
             $j_pemohon = new JenisPemohon;
-            $j_pemohon->name = $req->jenis_pemohon;
+            $j_pemohon->jenis_pemohon = $req->jenis_pemohon;
             $j_pemohon->save();
             
             Session::flash('tersimpan', 'Data jenis pemohon baru berhasil ditambahkan');
@@ -65,7 +66,7 @@ class HalJenisPemohonController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function editPemohon($id)
     {
         $j_pemohon = JenisPemohon::find($id);
         return view('auth::master_data.jenis_pemohon.halaman_edit_jenis_pemohon', compact('id', 'j_pemohon'));
@@ -77,13 +78,13 @@ class HalJenisPemohonController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $req, $id)
+    public function ubahPemohon(Request $req, $id)
     {
         $cek_pemohon1 = JenisPemohon::where('jenis_pemohon', '=', $req->jenis_pemohon)->count();
         $cek_pemohon2 = JenisPemohon::find($id);
         if($req->jenis_pemohon == $cek_pemohon2->jenis_pemohon || $cek_pemohon1 == 0) {
             $j_pemohon = JenisPemohon::find($id);
-            $j_pemohon->name = $req->jenis_pemohon;
+            $j_pemohon->jenis_pemohon = $req->jenis_pemohon;
             $j_pemohon->save();
             
             Session::flash('terubah', 'Data jenis pemohonan berhasil diubah');
@@ -99,7 +100,7 @@ class HalJenisPemohonController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function hapusPemohon($id)
     {
         $j_pemohon = JenisPemohon::find($id);
         $j_pemohon->delete();

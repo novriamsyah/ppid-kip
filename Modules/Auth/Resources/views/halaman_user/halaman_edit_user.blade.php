@@ -1,5 +1,11 @@
 @extends('auth::layouts.master')
 
+@section('css')
+
+<link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+    
+@endsection
+
 @section('content')
 <div class="row page-titles">
     <ol class="breadcrumb">
