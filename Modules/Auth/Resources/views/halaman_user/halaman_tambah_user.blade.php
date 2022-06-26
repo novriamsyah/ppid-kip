@@ -27,12 +27,12 @@
                         @csrf
                         
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-name">Nama
+                                    <label class="col-lg-2 col-form-label" for="val-name">Nama
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" id="val-name" name="name"  placeholder="Masukan nama.." required>
                                         <div class="invalid-feedback">
                                            Mohon Masukan Nama.
@@ -40,10 +40,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-email">Email <span
+                                    <label class="col-lg-2 col-form-label" for="val-email">Email <span
                                             class="text-danger">*</span>
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" id="val-email" name="email"  placeholder="Masukan emai aktif.." required>
                                         <div class="invalid-feedback">
                                             Mohon Masukan Email Anda.
@@ -51,10 +51,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-password">Password
+                                    <label class="col-lg-2 col-form-label" for="val-password">Password
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <input type="password" class="form-control" id="val-password" name="password" placeholder="Ketikan password yang aman.." required>
                                         <div class="invalid-feedback">
                                             Mohon Masukan Password.
@@ -62,9 +62,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-role">Posisi   
+                                    <label class="col-lg-2 col-form-label" for="val-role">Posisi   
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <select class="default-select wide form-control" id="val-role" name="role">
                                             <option value="">-- Pilih Posisi --</option>
                                             <option value="super_admin">super_admin</option>
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                <div class="col-lg-8 ms-auto">
+                                <div class="col-lg-10 ms-auto">
                                     <a href="{{url('/simpan_user')}}"><button type="submit" class="btn btn-primary">Tambah User</button></a>
                                 </div>
                                 </div>
