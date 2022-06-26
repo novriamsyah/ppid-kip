@@ -27,23 +27,21 @@
                         @csrf
                         
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-jenis_pemohon">Jenis Pemohon
+                                    <label class="col-lg-2 col-form-label" for="val-jenis_pemohon">Jenis Pemohon
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="val-jenis_pemohon" name="jenis_pemohon"  placeholder="Masukan Jenis Pemohon" required>
+                                        <input type="text" class="form-control input-default" id="val-jenis_pemohon" name="jenis_pemohon"  placeholder="Masukan Jenis Pemohon" required>
                                         <div class="invalid-feedback">
                                            Mohon Masukan Jenis Pemohon.
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                <div class="col-lg-8 ms-auto">
-                                    <a href="{{url('/simpan_pemohon')}}"><button type="submit" class="btn btn-primary">Tambah data<span
-                                        class="btn-icon-end"><i class="fa fa-plus"></i></span>
-                                </button></a>
+                                <div class="col-lg-10 ms-auto">
+                                    <a href="{{url('/simpan_pemohon')}}"><button type="submit" class="btn btn-primary">Tambah data</button></a>
                                 </div>
                                 </div>
                             </div>
@@ -68,7 +66,7 @@
         debug:!1,
         newestOnTop:!0,
         progressBar:!0,
-        positionClass:"toast-bottom-right",
+        positionClass:"toast-top-right",
         preventDuplicates:!0,
         onclick:null,
         showDuration:"300",

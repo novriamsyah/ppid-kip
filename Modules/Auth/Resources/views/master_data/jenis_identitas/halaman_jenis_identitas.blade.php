@@ -26,6 +26,7 @@
                             <tr>
                                 <th style="width:80px;"><strong>No.</strong></th>
                                 <th><strong>Jenis Identitas</strong></th>
+                                <th><strong>Pemohon</strong></th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -35,6 +36,7 @@
                                 <tr>
                                     <td><strong>{{$number}}</strong></td>
                                     <td>{{$identitas->jenis_identitas}}</td>
+                                    <td>{{$identitas->jenis_pemohon}}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-dark light sharp" data-bs-toggle="dropdown">

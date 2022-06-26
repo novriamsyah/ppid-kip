@@ -68,9 +68,7 @@
                                 </div>
                                 <div class="mb-3 row">
                                 <div class="col-lg-8 ms-auto">
-                                    <a href="{{url('/simpan_user')}}"><button type="submit" class="btn btn-primary">Ubah Data<span
-                                        class="btn-icon-end"><i class="fa fa-plus"></i></span>
-                                </button></a>
+                                    <a href="{{url('/simpan_user')}}"><button type="submit" class="btn btn-primary">Ubah Data</button></a>
                                 </div>
                                 </div>
                             </div>
@@ -96,7 +94,7 @@
         debug:!1,
         newestOnTop:!0,
         progressBar:!0,
-        positionClass:"toast-bottom-right",
+        positionClass:"toast-top-right",
         preventDuplicates:!0,
         onclick:null,
         showDuration:"300",

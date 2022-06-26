@@ -27,12 +27,12 @@
                         @csrf
                         
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-jenis_pemohon">Jenis Pemohon
+                                    <label class="col-lg-2 col-form-label" for="val-jenis_pemohon">Jenis Pemohon
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" id="val-jenis_pemohon" name="jenis_pemohon"  placeholder="Masukan jenis pemohon" value="{{$j_pemohon->jenis_pemohon}}" required>
                                         <div class="invalid-feedback">
                                            Mohon Masukan Data Jenis Pemohon.
@@ -40,10 +40,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                <div class="col-lg-8 ms-auto">
-                                    <a href="{{url('/simpan_pemohon')}}"><button type="submit" class="btn btn-primary">Ubah Data<span
-                                        class="btn-icon-end"><i class="fa fa-plus"></i></span>
-                                </button></a>
+                                <div class="col-lg-10 ms-auto">
+                                    <a href="{{url('/simpan_pemohon')}}"><button type="submit" class="btn btn-primary">Ubah Data</button></a>
                                 </div>
                                 </div>
                             </div>
@@ -69,7 +67,7 @@
         debug:!1,
         newestOnTop:!0,
         progressBar:!0,
-        positionClass:"toast-bottom-right",
+        positionClass:"toast-top-right",
         preventDuplicates:!0,
         onclick:null,
         showDuration:"300",

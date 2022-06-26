@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Entities\JenisIdentitas;
 use Modules\Auth\Entities\JenisPemohon;
+use Illuminate\Support\Facades\DB;
 
 class HalJenisIdentitasController extends Controller
 {
@@ -17,7 +18,11 @@ class HalJenisIdentitasController extends Controller
      */
     public function halamanIdentitas()
     {
-        $j_identitas = JenisIdentitas::all();
+        $j_identitas = DB::table('jenis_identitas')
+        ->select('jenis_identitas.id','jenis_identitas.jenis_identitas', 'jenis_pemohon.jenis_pemohon')
+        ->join('jenis_pemohon', 'jenis_pemohon.id','=','jenis_identitas.id_jenis_pemohon')->get();
+
+        // dd($j_identitas);
         return view('auth::master_data.jenis_identitas.halaman_jenis_identitas', compact('j_identitas'));
     }
 
@@ -38,13 +43,19 @@ class HalJenisIdentitasController extends Controller
      */
     public function simpanIdentitas(Request $req)
     {
-        $j_identitas = new JenisIdentitas;
-        $j_identitas->jenis_identitas = $req->jenis_identitas;
-        $j_identitas->id_jenis_pemohon = $req->id_jenis_pemohon;
-        $j_identitas->save();
-
-        Session::flash('tersimpan', 'Data jenis identitas berhasil ditambah');
-        return redirect('/kelola_identitas');
+        $cek_identitas = JenisIdentitas::where('jenis_identitas', '=', $req->jenis_identitas)->count();
+        if($cek_identitas == 1) {
+            Session::flash('tidak_tersimpan', 'Maaf Jenis pemohon yang anda masukan telah digunakan');
+            return redirect('/tambah_identitas');
+        } else {
+            $j_identitas = new JenisIdentitas;
+            $j_identitas->jenis_identitas = $req->jenis_identitas;
+            $j_identitas->id_jenis_pemohon = $req->id_jenis_pemohon;
+            $j_identitas->save();
+    
+            Session::flash('tersimpan', 'Data jenis identitas berhasil ditambah');
+            return redirect('/kelola_identitas');
+        }
     }
 
     /**
@@ -77,13 +88,20 @@ class HalJenisIdentitasController extends Controller
      */
     public function ubahIdentitas(Request $req, $id)
     {
-        $j_identitas = JenisIdentitas::find($id);
-        $j_identitas->jenis_identitas = $req->jenis_identitas;
-        $j_identitas->id_jenis_pemohon = $req->id_jenis_pemohon;
-        $j_identitas->save();
-
-        Session::flash('terubah', 'Data jenis identitas berhasil diubah');
-        return redirect('/kelola_identitas');
+        $cek_identitas1 = JenisIdentitas::where('jenis_identitas', '=', $req->jenis_identitas)->count();
+        $cek_identitas2 = JenisIdentitas::find($id);
+        if($req->jenis_pemohon == $cek_identitas2->jenis_pemohon || $cek_identitas1 == 0) {
+            $j_identitas = JenisIdentitas::find($id);
+            $j_identitas->jenis_identitas = $req->jenis_identitas;
+            $j_identitas->id_jenis_pemohon = $req->id_jenis_pemohon;
+            $j_identitas->save();
+    
+            Session::flash('terubah', 'Data jenis identitas berhasil diubah');
+            return redirect('/kelola_identitas');
+        } else {
+            Session::flash('tidak_terubah', 'Maaf data jenis Identitas telah digunakan');
+            return redirect()->back();
+        }
     }
 
     /**

@@ -27,12 +27,12 @@
                         @csrf
                         
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-jenis_identitas">Jenis Identitas
+                                    <label class="col-lg-2 col-form-label" for="val-jenis_identitas">Jenis Identitas
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" id="val-jenis_identitas" name="jenis_identitas"  placeholder="Masukan jenis identitas" value="{{$j_identitas->jenis_identitas}}">
                                         <div class="invalid-feedback">
                                            Mohon Masukan Data Jenis Identitas.
@@ -40,9 +40,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-lg-4 col-form-label" for="val-id_jenis_pemohon">Jenis Pemohon   
+                                    <label class="col-lg-2 col-form-label" for="val-id_jenis_pemohon">Jenis Pemohon   
                                     </label>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
                                         <select class="default-select wide form-control" id="val-id_jenis_pemohon" name="id_jenis_pemohon">
                                             <option value="">-- Pilih Jenis Pemohon --</option>
                                             @foreach ($j_pemohon as $pemohon)
@@ -52,10 +52,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                <div class="col-lg-8 ms-auto">
-                                    <a href="{{url('/simpan_identitas')}}"><button type="submit" class="btn btn-primary">Ubah Data<span
-                                        class="btn-icon-end"><i class="fa fa-plus"></i></span>
-                                </button></a>
+                                <div class="col-lg-10 ms-auto">
+                                    <a href="{{url('/simpan_identitas')}}"><button type="submit" class="btn btn-primary">Ubah Data</button></a>
                                 </div>
                                 </div>
                             </div>
@@ -81,7 +79,7 @@
         debug:!1,
         newestOnTop:!0,
         progressBar:!0,
-        positionClass:"toast-bottom-right",
+        positionClass:"toast-top-right",
         preventDuplicates:!0,
         onclick:null,
         showDuration:"300",
