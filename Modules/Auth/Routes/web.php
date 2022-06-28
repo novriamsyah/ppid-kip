@@ -58,6 +58,14 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::get('/edit_identitas/{id}', 'HalJenisIdentitasController@editIdentitas');
     Route::post('/ubah_identitas/{id}', 'HalJenisIdentitasController@ubahIdentitas');
     Route::get('/hapus_identitas/{id}', 'HalJenisIdentitasController@hapusIdentitas');
+
+    //kelola jenis pekerjaan
+    Route::get('/kelola_pekerjaan', 'HalJenisPekerjaanController@halamanPekerjaan');
+    Route::get('/tambah_pekerjaan', 'HalJenisPekerjaanController@tambahPekerjaan');
+    Route::post('/simpan_pekerjaan', 'HalJenisPekerjaanController@simpanPekerjaan');
+    Route::get('/edit_pekerjaan/{id}', 'HalJenisPekerjaanController@editPekerjaan');
+    Route::post('/ubah_pekerjaan/{id}', 'HalJenisPekerjaanController@ubahPekerjaan');
+    Route::get('/hapus_pekerjaan/{id}', 'HalJenisPekerjaanController@hapusPekerjaan');
 });
 
 

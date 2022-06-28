@@ -138,6 +138,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{url('/kelola_pemohon')}}">Jenis Pemohon</a></li>
 							<li><a href="{{url('/kelola_identitas')}}">Jenis Identitas</a></li>
+							<li><a href="{{url('/kelola_pekerjaan')}}">Jenis Pekerjaan</a></li>
                         </ul>
                     </li>
 					@endif
