@@ -99,7 +99,7 @@ class HalJenisIdentitasController extends Controller
             Session::flash('terubah', 'Data jenis identitas berhasil diubah');
             return redirect('/kelola_identitas');
         } else {
-            Session::flash('tidak_terubah', 'Maaf data jenis Identitas telah digunakan');
+            Session::flash('tidak_tesimpan', 'Maaf data jenis Identitas telah digunakan');
             return redirect()->back();
         }
     }

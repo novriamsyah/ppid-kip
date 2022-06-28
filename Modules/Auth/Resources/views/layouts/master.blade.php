@@ -191,7 +191,7 @@
     <!-- Required vendors -->
     <script src="{{ asset('assets/vendor/global/global.min.js') }}"></script>
 	<script src="{{ asset('assets/vendor/chart.js/Chart.bundle.min.js') }}"></script>
-	<script src="{{ asset('vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+	<script src="{{ asset('assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
 	
 	<!-- Apex Chart -->
 	<script src="{{ asset('assets/vendor/apexchart/apexchart.js') }}"></script>

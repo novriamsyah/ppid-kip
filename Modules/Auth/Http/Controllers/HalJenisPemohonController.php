@@ -90,7 +90,7 @@ class HalJenisPemohonController extends Controller
             Session::flash('terubah', 'Data jenis pemohonan berhasil diubah');
             return redirect('/kelola_pemohon');
         } else {
-            Session::flash('tidak_terubah', 'Maaf data jenis pemohonan telah digunakan');
+            Session::flash('tidak_tersimpan', 'Maaf data jenis pemohonan telah digunakan');
             return redirect()->back();
         }
     }

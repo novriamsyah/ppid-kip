@@ -90,7 +90,7 @@ class HalJenisPekerjaanController extends Controller
             Session::flash('terubah', 'Data jenis pekerjaan berhasil diubah');
             return redirect('/kelola_pekerjaan');
         } else {
-            Session::flash('tidak_terubah', 'Maaf data jenis pekerjaan telah digunakan');
+            Session::flash('tidak_tersimpan', 'Maaf data jenis pekerjaan telah digunakan');
             return redirect()->back();
         }
     }

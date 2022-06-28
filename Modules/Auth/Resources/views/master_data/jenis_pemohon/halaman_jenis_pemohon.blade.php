@@ -1,5 +1,10 @@
 @extends('auth::layouts.master')
 
+@section('css')
+<link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+<link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="row page-titles">
     <ol class="breadcrumb">
@@ -58,4 +63,32 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script>
+    @if ($message = Session::get('tersimpan'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+    @if ($message = Session::get('terubah'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+    @if ($message = Session::get('terhapus'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+</script>
 @endsection
