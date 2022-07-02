@@ -55,10 +55,10 @@
 						<form method="POST" class="ubah_password_form">
 							@csrf
 							<div class="mb-3">
-								<input type="password" name="old_password" class="form-control input-default " placeholder="Password lama">
+								<input type="password" name="old_password" class="form-control input-default " placeholder="Password lama" style="border: 1px solid #000000">
 							</div>
 							<div class="mb-3">
-								<input type="password" name="new_password" class="form-control input-rounded" placeholder="Password baru">
+								<input type="password" name="new_password" class="form-control input-rounded" placeholder="Password baru" style="border: 1px solid #000000">
 							</div>
 							<div class="mb-3">
 								<button type="submit" class="btn btn-primary font-weight-bold btn-flat btn-block" style="font-size: 12px;">ubah Password</button>

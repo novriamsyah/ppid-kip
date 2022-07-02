@@ -1,3 +1,6 @@
 {
-    "Auth": true
+    "Auth": true,
+    "Pemohon": true,
+    "Identitas": true,
+    "Pekerjaan": true
 }

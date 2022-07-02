@@ -66,7 +66,7 @@
                                              
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{url('/edit_user/'.$pengguna->id)}}">Edit</a>
-                                                <a class="dropdown-item" href="{{url('/hapus_user/'.$pengguna->id)}}">Delete</a>
+                                                <a class="dropdown-item" href="{{url('/hapus_user/'.$pengguna->id)}}" onclick="return confirm('Apakah kamu yakin?')">Delete</a>
                                             </div> 
                                         </div>
                                         @endif

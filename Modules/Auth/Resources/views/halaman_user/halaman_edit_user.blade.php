@@ -33,7 +33,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <input type="text" class="form-control" id="val-name" name="name"  placeholder="Masukan nama.." value="{{$users->name}}" required>
+                                        <input type="text" class="form-control" id="val-name" name="name"  placeholder="Masukan nama.." value="{{$users->name}}" required style="border: 1px solid #000000">
                                         <div class="invalid-feedback">
                                            Mohon Masukan Nama.
                                         </div>
@@ -44,7 +44,7 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <input type="text" class="form-control" id="val-email" name="email"  placeholder="Masukan emai aktif.." value="{{$users->email}}" required>
+                                        <input type="text" class="form-control" id="val-email" name="email"  placeholder="Masukan emai aktif.." value="{{$users->email}}" required style="border: 1px solid #000000">
                                         <div class="invalid-feedback">
                                             Mohon Masukan Email Anda.
                                         </div>

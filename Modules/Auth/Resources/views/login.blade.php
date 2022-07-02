@@ -54,11 +54,11 @@
     
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Email</strong></label>
-                                            <input type="email" name="email" class="form-control" required autocomplete="email" autofocus>
+                                            <input type="email" name="email" class="form-control" required autocomplete="email" autofocus style="border: 1px solid #000000">
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
-                                            <input type="password" name="password" class="form-control" required autocomplete="current-password">
+                                            <input type="password" name="password" class="form-control" required autocomplete="current-password" style="border: 1px solid #000000">
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
                                             {{-- <div class="mb-3">

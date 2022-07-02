@@ -43,22 +43,6 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::post('/update_profil', 'HalProfilController@updateProfil'); 
     Route::post('/ubah_password/{id}', 'HalProfilController@ubahPassword'); 
 
-    //kelola jenis pemohon
-    Route::get('/kelola_pemohon', 'HalJenisPemohonController@halamanPemohon');
-    Route::get('/tambah_pemohon', 'HalJenisPemohonController@tambahPemohon');
-    Route::post('/simpan_pemohon', 'HalJenisPemohonController@simpanPemohon');
-    Route::get('/edit_pemohon/{id}', 'HalJenisPemohonController@editPemohon');
-    Route::post('/ubah_pemohon/{id}', 'HalJenisPemohonController@ubahPemohon');
-    Route::get('/hapus_pemohon/{id}', 'HalJenisPemohonController@hapusPemohon');
-
-    //kelola jenis identitas
-    Route::get('/kelola_identitas', 'HalJenisIdentitasController@halamanIdentitas');
-    Route::get('/tambah_identitas', 'HalJenisIdentitasController@tambahIdentitas');
-    Route::post('/simpan_identitas', 'HalJenisIdentitasController@simpanIdentitas');
-    Route::get('/edit_identitas/{id}', 'HalJenisIdentitasController@editIdentitas');
-    Route::post('/ubah_identitas/{id}', 'HalJenisIdentitasController@ubahIdentitas');
-    Route::get('/hapus_identitas/{id}', 'HalJenisIdentitasController@hapusIdentitas');
-
     //kelola jenis pekerjaan
     Route::get('/kelola_pekerjaan', 'HalJenisPekerjaanController@halamanPekerjaan');
     Route::get('/tambah_pekerjaan', 'HalJenisPekerjaanController@tambahPekerjaan');

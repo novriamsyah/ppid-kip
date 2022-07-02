@@ -1,0 +1,13 @@
+{
+    "name": "Pekerjaan",
+    "alias": "pekerjaan",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Pekerjaan\\Providers\\PekerjaanServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
