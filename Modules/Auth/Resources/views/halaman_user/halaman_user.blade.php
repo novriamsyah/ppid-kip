@@ -1,7 +1,9 @@
 @extends('auth::layouts.master')
 
 @section('css')
-<link href="{{ asset('assets/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet"> 
+<link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+<link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -66,7 +68,7 @@
                                              
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{url('/edit_user/'.$pengguna->id)}}">Edit</a>
-                                                <a class="dropdown-item" href="{{url('/hapus_user/'.$pengguna->id)}}" onclick="return confirm('Apakah kamu yakin?')">Delete</a>
+                                                <a class="dropdown-item delete-confirm" onclick="deleteConfirmation({{$pengguna->id}})" role="button">Delete</a>
                                             </div> 
                                         </div>
                                         @endif
@@ -87,5 +89,59 @@
 @section('script')
 <script src="{{asset('assets/vendor/datatables/js/jquery.dataTables.min.js' )}}"></script>
 <script src="{{asset('assets/js/plugins-init/datatables.init.js' )}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script>
+    function deleteConfirmation(id) {
+        swal({
+        title: "Apakah kamu yakin?",
+        text: "Data ini akan dihapus permanen !!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+        reverseButtons: !0
+        }).then(function (e) {
+        if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+        type: 'POST',
+        url: "{{url('/hapus_user')}}/" + id,
+        data: {_token: CSRF_TOKEN},
+        dataType: 'JSON',
+        success: function (results) {
+            if (results.success === true) { 
+                swal("Done!", results.message, "success");
+            } else {
+                swal("Error!", results.message, "error");
+        }
+        }
+        });
+            location.reload();
+        } else {
+            e.dismiss;
+        }
+    }, function (dismiss) {
+    return false;
+    })
+    }
+
+    @if ($message = Session::get('tersimpan'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+    @if ($message = Session::get('terubah'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+</script>
 
 @endsection

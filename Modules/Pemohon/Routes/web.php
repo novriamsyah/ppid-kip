@@ -24,6 +24,6 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::post('/simpan_pemohon', 'HalJenisPemohonController@simpanPemohon');
     Route::get('/edit_pemohon/{id}', 'HalJenisPemohonController@editPemohon');
     Route::post('/ubah_pemohon/{id}', 'HalJenisPemohonController@ubahPemohon');
-    Route::get('/hapus_pemohon/{id}', 'HalJenisPemohonController@hapusPemohon');
+    Route::post('/hapus_pemohon/{id}', 'HalJenisPemohonController@hapusPemohon');
 
 });

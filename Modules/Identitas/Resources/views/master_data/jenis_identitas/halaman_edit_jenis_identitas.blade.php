@@ -43,7 +43,7 @@
                                     <label class="col-lg-2 col-form-label" for="val-id_jenis_pemohon">Jenis Pemohon   
                                     </label>
                                     <div class="col-lg-8">
-                                        <select class="default-select wide form-control" id="val-id_jenis_pemohon" name="id_jenis_pemohon">
+                                        <select class="default-select wide form-control required" id="val-id_jenis_pemohon" name="id_jenis_pemohon">
                                             <option value="">-- Pilih Jenis Pemohon --</option>
                                             @foreach ($j_pemohon as $pemohon)
                                             <option value="{{$pemohon->id}}">{{$pemohon->jenis_pemohon}}</option>
@@ -70,6 +70,7 @@
 @section('script')
 <script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
+
 
 <script type="text/javascript">
     @if ($message = Session::get('tidak_tersimpan'))

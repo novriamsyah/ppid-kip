@@ -23,6 +23,6 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::post('/simpan_identitas', 'HalJenisIdentitasController@simpanIdentitas');
     Route::get('/edit_identitas/{id}', 'HalJenisIdentitasController@editIdentitas');
     Route::post('/ubah_identitas/{id}', 'HalJenisIdentitasController@ubahIdentitas');
-    Route::get('/hapus_identitas/{id}', 'HalJenisIdentitasController@hapusIdentitas');
+    Route::post('/hapus_identitas/{id}', 'HalJenisIdentitasController@hapusIdentitas');
 
 });

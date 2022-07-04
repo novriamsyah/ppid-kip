@@ -12,6 +12,7 @@
 	<meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
 	<meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
 	<meta name="format-detection" content="telephone=no">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	
 	<title>Komisi Informasi</title>
 	
@@ -191,7 +192,7 @@
     <!-- Required vendors -->
     <script src="{{ asset('assets/vendor/global/global.min.js') }}"></script>
 	<script src="{{ asset('assets/vendor/chart.js/Chart.bundle.min.js') }}"></script>
-	<script src="{{ asset('assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+	{{-- <script src="{{ asset('assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script> --}}
 	
 	<!-- Apex Chart -->
 	<script src="{{ asset('assets/vendor/apexchart/apexchart.js') }}"></script>

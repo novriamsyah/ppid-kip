@@ -102,10 +102,18 @@ class HalJenisPemohonController extends Controller
      */
     public function hapusPemohon($id)
     {
-        $j_pemohon = JenisPemohon::find($id);
-        $j_pemohon->delete();
-
-        Session::flash('terhapus', 'Data jenis pemohon berhasil dihapus');
-        return redirect('/kelola_pemohon');
+        $j_pemohon = JenisPemohon::where('id', $id)->delete();
+        
+        if($j_pemohon == 1) {
+            $success = true;
+            $message = "Data pemohon berhasil dihapus !";
+        } else {
+            $success = true;
+            $message = "gagal";
+        }
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 }

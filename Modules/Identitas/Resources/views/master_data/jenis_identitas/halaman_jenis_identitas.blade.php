@@ -50,8 +50,7 @@
                                              
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{url('/edit_identitas/'.$identitas->id)}}">Edit</a>
-                                                <a class="dropdown-item delete-confirm" href="{{url('/hapus_identitas/'.$identitas->id)}}" onclick="return confirm('Apakah kamu yakin?')">Delete</a>
-                                                {{-- <a class="dropdown-item delete-confirm" onclick="deleteConfirmation({{$identitas->id}})">Delete</a> --}}
+                                                <a class="dropdown-item delete-confirm" onclick="deleteConfirmation({{$identitas->id}})" role="button">Delete</a>
                                             </div> 
                                         </div>
                                     </td>
@@ -68,10 +67,44 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
 <script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
 <script>
+    function deleteConfirmation(id) {
+        swal({
+        title: "Apakah kamu yakin?",
+        text: "Data ini akan dihapus permanen !!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+        reverseButtons: !0
+        }).then(function (e) {
+        if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+        type: 'POST',
+        url: "{{url('/hapus_identitas')}}/" + id,
+        data: {_token: CSRF_TOKEN},
+        dataType: 'JSON',
+        success: function (results) {
+            if (results.success === true) { 
+                swal("Done!", results.message, "success");
+            } else {
+                swal("Error!", results.message, "error");
+        }
+        }
+        });
+            location.reload();
+        } else {
+            e.dismiss;
+        }
+    }, function (dismiss) {
+    return false;
+    })
+    }
     @if ($message = Session::get('tersimpan'))
         swal(
             "berhasil",
@@ -80,13 +113,6 @@
         )
     @endif
     @if ($message = Session::get('terubah'))
-        swal(
-            "berhasil",
-            "{{ $message }}",
-            "success"
-        )
-    @endif
-    @if ($message = Session::get('terhapus'))
         swal(
             "berhasil",
             "{{ $message }}",

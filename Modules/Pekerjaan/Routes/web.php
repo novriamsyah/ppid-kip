@@ -19,10 +19,10 @@
 Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
 
     //kelola jenis pekerjaan
-    Route::get('/kelola_pekerjaan', 'HalJenisPekerjaanController@halamanPekerjaan');
+    Route::get('/kelola_pekerjaan', 'HalJenisPekerjaanController@halamanPekerjaan')->name('kelola.kerja');
     Route::get('/tambah_pekerjaan', 'HalJenisPekerjaanController@tambahPekerjaan');
     Route::post('/simpan_pekerjaan', 'HalJenisPekerjaanController@simpanPekerjaan');
     Route::get('/edit_pekerjaan/{id}', 'HalJenisPekerjaanController@editPekerjaan');
     Route::post('/ubah_pekerjaan/{id}', 'HalJenisPekerjaanController@ubahPekerjaan');
-    Route::get('/hapus_pekerjaan/{id}', 'HalJenisPekerjaanController@hapusPekerjaan');
+    Route::post('/hapus_pekerjaan/{id}', 'HalJenisPekerjaanController@hapusPekerjaan');
 });

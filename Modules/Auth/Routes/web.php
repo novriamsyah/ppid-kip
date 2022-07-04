@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth2:super_admin']], function(){
     Route::get('/lihat_user/{id}', 'HalamanUserController@lihatUser');
     Route::get('/edit_user/{id}', 'HalamanUserController@editUser');
     Route::post('/ubah_user/{id}', 'HalamanUserController@ubahUser');
-    Route::get('/hapus_user/{id}', 'HalamanUserController@hapusUser');
+    Route::post('/hapus_user/{id}', 'HalamanUserController@hapusUser');
 
 });
 
@@ -42,14 +42,6 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::get('/kelola_profil', 'HalProfilController@halamanProfil'); 
     Route::post('/update_profil', 'HalProfilController@updateProfil'); 
     Route::post('/ubah_password/{id}', 'HalProfilController@ubahPassword'); 
-
-    //kelola jenis pekerjaan
-    Route::get('/kelola_pekerjaan', 'HalJenisPekerjaanController@halamanPekerjaan');
-    Route::get('/tambah_pekerjaan', 'HalJenisPekerjaanController@tambahPekerjaan');
-    Route::post('/simpan_pekerjaan', 'HalJenisPekerjaanController@simpanPekerjaan');
-    Route::get('/edit_pekerjaan/{id}', 'HalJenisPekerjaanController@editPekerjaan');
-    Route::post('/ubah_pekerjaan/{id}', 'HalJenisPekerjaanController@ubahPekerjaan');
-    Route::get('/hapus_pekerjaan/{id}', 'HalJenisPekerjaanController@hapusPekerjaan');
 });
 
 

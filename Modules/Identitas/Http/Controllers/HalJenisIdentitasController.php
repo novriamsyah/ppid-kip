@@ -110,22 +110,18 @@ class HalJenisIdentitasController extends Controller
      */
     public function hapusIdentitas($id)
     {
-        $j_identitas = JenisIdentitas::find($id);
-
-        //cek data hapus atau tidak
-        // if($j_identitas == 1) {
-        //     $success = true;
-        //     $message = "Data identitas berhasil dihapus";
-        // } else {
-        //     $success = true;
-        //     $message = "Data identitas tidak ditemukan";
-        // }
-        // return response()->json([
-        //     'success' => $success,
-        //     'message' => $message,
-        // ]);
-        $j_identitas->delete();
-        Session::flash('terhapus', 'Data jenis identitas berhasil dihapus');
-        return redirect('/kelola_identitas');
+        $j_identitas = JenisIdentitas::where('id', $id)->delete();
+        
+         if($j_identitas == 1) {
+             $success = true;
+             $message = "Data identitas berhasil dihapus !";
+         } else {
+             $success = true;
+             $message = "gagal";
+         }
+         return response()->json([
+             'success' => $success,
+             'message' => $message,
+         ]);
     }
 }

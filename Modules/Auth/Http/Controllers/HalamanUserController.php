@@ -114,11 +114,19 @@ class HalamanUserController extends Controller
      * @return Renderable
      */
     public function hapusUser($id)
-    {
-        $user = User::find($id);
-        $user->delete();
-
-        Session::flash('terhapus', 'Data user berhasil dihapus');
-        return redirect('/kelola_user');        
+    {        
+        $user = User::where('id', $id)->delete();
+        
+         if($user == 1) {
+             $success = true;
+             $message = "Data user berhasil dihapus !";
+         } else {
+             $success = true;
+             $message = "gagal";
+         }
+         return response()->json([
+             'success' => $success,
+             'message' => $message,
+         ]);
     }
 }

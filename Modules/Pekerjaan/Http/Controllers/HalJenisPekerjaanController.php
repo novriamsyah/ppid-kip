@@ -102,11 +102,25 @@ class HalJenisPekerjaanController extends Controller
      */
     public function hapusPekerjaan($id)
     {
-        $j_pekerjaan = KelompokPekerjaan::find($id);
-        $j_pekerjaan->delete();
+        //$j_pekerjaan = KelompokPekerjaan::find($id);
+        //$j_pekerjaan->delete();
 
-        Session::flash('terhapus', 'Data jenis pekerjaan berhasil dihapus');
-        return redirect('/kelola_pekerjaan');
+        //Session::flash('terhapus', 'Data jenis pekerjaan berhasil dihapus');
+        //return redirect('/kelola_pekerjaan'); 
+        
+        $j_pekerjaan = KelompokPekerjaan::where('id', $id)->delete();
+        
+         if($j_pekerjaan == 1) {
+             $success = true;
+             $message = "Data pekerja berhasil dihapus !";
+         } else {
+             $success = true;
+             $message = "gagal";
+         }
+         return response()->json([
+             'success' => $success,
+             'message' => $message,
+         ]);
     
     }
 }
