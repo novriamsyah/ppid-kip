@@ -300,70 +300,73 @@
 				<form action="{{url('/simpan_register')}}" method="POST" enctype="multipart/form-data" name="pengguna_baru_form">
           @csrf
 					<div class="mb-3">
-						<input placeholder="Nama Lengkap" class="form-control" id="exampleInputNama1" name="nama_lengkap" aria-describedby="NamaHelp">
-					  </div>
-
-				    <select class="form-select mb-4 rounded-pill" name="jenis_pemohon" aria-label="Default select example" id="pemohon">
-                        <option disabled selected value="">Jenis Pemohonan</option>
-                        @foreach($pemohon as $it_pmhn)
-                        <option value="{{$it_pmhn->id}}" nilai="{{$it_pmhn->jenis_pemohon}}">{{$it_pmhn->jenis_pemohon}}</option>
-                        @endforeach
-                      </select>
-				    <select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" id="identitas" aria-label="Default select example">
-                        <option disabled selected>Jenis NIK</option>
-                      </select>
-										  <div class="mb-3">
-											<input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp">
-										  </div>
-                      <div class="mb-3">
-                        <div class="addidenty" style="display: none">
-                            <a href="#" class="addIdentitas" role="button"><i class="fas fa-plus-circle fa-2x"></i>
-                              <select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas"><option disabled selected value="">Jenis NIK</option>@foreach($j_identitas as $it_identy)<option value="{{$it_identy->jenis_identitas}}">{{$it_identy->jenis_identitas}}</option> @endforeach</select>
-                              <div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="jenis"></div>
-                      <div class="mb-4">
-                        <label for="formFile" class="form-label text-danger">No indentitas wajib diisi!</label>
-                        <input class="form-control" type="file" name="file_identitas" id="formFile">
-                      </div>
-                      <div class="mb-3">
-						<input  placeholder="NPWP " class="form-control" name="npwp" id="exampleInputNPWP1" aria-describedby="NPWPHelp">
-					  </div>
-                      <select class="form-select mb-4 rounded-pill" name="pekerjaan" aria-label="Default select example" >
-                        <option disabled selected>Pekerjaan</option>
-                        @foreach($kerja as $it_kerja)
-                        <option value="{{$it_kerja->id}}">{{$it_kerja->jenis_kerja}}</option>
-                        @endforeach
-
-                      </select>
-                      <div class="mb-3">
-						<input  placeholder="Alamat " name="alamat" class="form-control" id="exampleInputAlamat1" aria-describedby="AlamatHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Telp " class="form-control" name="telp" id="exampleInputTelp1" aria-describedby="TelpHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Keterangan " class="form-control" name="ket" id="exampleInputKeterangan1" aria-describedby="KeteranganHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Email " class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
-					  </div>
-					  <div class="mb-3">
-				
-						<input type="password" placeholder="Password" name="pass" class="form-control" id="exampleInputPassword1">
-					  </div>
-            
-            <div class="text-end">
-
+						<input placeholder="Nama" class="form-control" id="nama_lengkap" name="nama_lengkap" aria-describedby="NamaHelp">
+					</div>
+			    <select class="form-select mb-4 rounded-pill" aria-label="Default select example" id="pemohon" name="jenis_pemohon">
+              <option disabled selected value="">Jenis Pemohonan</option>
+              @foreach($pemohon as $it_pmhn)
+              <option value="{{$it_pmhn->id}}" nilai="{{$it_pmhn->jenis_pemohon}}">{{$it_pmhn->jenis_pemohon}}</option>
+              @endforeach
+          </select>
+				  <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="jenis_identitas[]" id="identitas">
+              <option disabled selected>Jenis NIK</option>
+          </select>
+          <div class="mb-3">
+							<input  placeholder="NIK" class="form-control" id="nomor_identitas" name="nomor_identitas[]" aria-describedby="NIKHelp">
+					</div>
+            <div id="tambahIdentitas" style="display: none">
+              <a id="tambahFormIdentitas" role="button"><i class="fas fa-plus-circle fa-2x"></i>
+              
+            </div>
+            <div id="tambahIdentitas2">
+              <select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas"> 
+                <option disabled selected value="">Jenis NIK</option> 
+                @foreach($j_identitas as $it_identy)
+                <option value="{{$it_identy->jenis_identitas}}">
+                    {{$it_identy->jenis_identitas}}
+                </option> 
+                @endforeach
+              </select>
+                <div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div>
+                
+            </div>
+            <div id="tampungJenis"></div>
+          <div class="mb-4">
+              <label for="formFile" class="form-label text-danger">No indentitas wajib diisi!</label>
+              <input class="form-control" type="file" id="file_identitas" name="file_identitas">
+          </div>
+          <div class="mb-3">
+						<input  placeholder="NPWP " class="form-control" id="npwp" name="npwp" aria-describedby="NPWPHelp">
+					</div>
+          <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="pekerjaan" >
+                <option disabled selected>Pekerjaan</option>
+                @foreach($kerja as $it_kerja)
+                <option value="{{$it_kerja->id}}">{{$it_kerja->jenis_kerja}}</option>
+                @endforeach
+          </select>
+          <div class="mb-3">
+						<input  placeholder="Alamat " class="form-control" id="alamat" name="alamat" aria-describedby="AlamatHelp">
+					</div>
+          <div class="mb-3">
+						<input  placeholder="Telp " class="form-control" id="telp" name="telp" aria-describedby="TelpHelp">
+					</div>
+          <div class="mb-3">
+						<input  placeholder="Keterangan " class="form-control" id="ket" name="ket" aria-describedby="KeteranganHelp">
+					</div>
+          <div class="mb-3">
+						<input  placeholder="Email" type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+					</div>
+					<div class="mb-3">
+						<input type="password" placeholder="Password" class="form-control" id="pass" name="pass">
+					</div>
+          <div class="text-end">
               <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
-              <a href="login.html"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            </div>
-					
-				  </form>
-			</div>
-		
+              <a href="#"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
+          </div>
+				</form>
+		</div>
 	</div>
+
 	</div>
 
 	<!-- mobile -->
@@ -577,8 +580,8 @@
 
 <!-- JAVA SCRIPTS -->
 {{-- <script src="{{ asset('fron_asset/js/jquery.min.js') }}"></script> --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{{-- <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script> --}}
 <script src="{{ asset('fron_asset/js/popper.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/slick.min.js') }}"></script>
@@ -621,28 +624,31 @@
       $(this).find("option:selected").each(function() {
         var optionNilai = $(this).attr("nilai");
         // console.log(optionNilai);
-        $(".addidenty").hide();
+        $("#tambahIdentitas").hide();
+        $("#tambahIdentitas2").hide();
         if(optionNilai == "Kelompok Orang") {
           // console.log('ok');
-          $(".addidenty").show();
+          $("#tambahIdentitas").show();
+          $("#tambahIdentitas2").show();
+        } else {
+          $("#tambahIdentitas").hide();
+          $("#tambahIdentitas2").hide();
         }
       });
     });
   });
 
-  $('.addIdentitas').on('click', function() {
-    
+  $('#tambahFormIdentitas').on('click', function() {
     addidentitas();
   });
   function addidentitas() {
-    var identitas_add = '<div><select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas"><option disabled selected value="">Jenis NIK</option>@foreach($j_identitas as $it_identy)<option value="{{$it_identy->jenis_identitas}}">{{$it_identy->jenis_identitas}}</option> @endforeach</select></div><div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div><div><a href="#" class="removIden" role="button"><i class="fas fa-minus-circle fa-2x"></i></a></div>';
-
-    $('.jenis').append(identitas_add); 
+    var identitas_add = '<div><select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas"><option disabled selected value="">Jenis NIK</option>@foreach($j_identitas as $it_identy)<option value="{{$it_identy->jenis_identitas}}">{{$it_identy->jenis_identitas}}</option>@endforeach</select><div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div><a id="removIden" role="button"><i class="fas fa-minus-circle fa-2x"></i></div>';
+    $('#tampungJenis').append(identitas_add); 
   };
 
-  $('.removIden').live('click', function() {
+  $('#tampungJenis').on('click', '#removIden', function() {
     
-    $(this).parent().parent().remove();
+    $(this).parent().remove();
   });
  
   
