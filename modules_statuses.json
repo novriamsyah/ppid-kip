@@ -2,5 +2,6 @@
     "Auth": true,
     "Pemohon": true,
     "Identitas": true,
-    "Pekerjaan": true
+    "Pekerjaan": true,
+    "Register": true
 }
