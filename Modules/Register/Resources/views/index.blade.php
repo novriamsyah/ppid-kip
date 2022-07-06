@@ -581,12 +581,12 @@
 <!-- JAVA SCRIPTS -->
 {{-- <script src="{{ asset('fron_asset/js/jquery.min.js') }}"></script> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-{{-- <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script> --}}
 <script src="{{ asset('fron_asset/js/popper.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/slick.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/jquery.sticky-sidebar.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/custom.js') }}"></script>
+<script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
 
 
 <script>
@@ -649,6 +649,91 @@
   $('#tampungJenis').on('click', '#removIden', function() {
     
     $(this).parent().remove();
+  });
+
+  $(document).ready(function() {
+    $("form[name='pengguna_baru_form']").validate({
+      rules: {
+        nama_lengkap: "required",
+        jenis_pemohon: "required",
+        jenis_identitas: "required",
+        file_identitas: {
+          required: true,
+          extension: "pdf|jpg|jpeg",
+          filesize: 2
+        },
+        nomor_identitas: {
+            required: true,
+            number:true,
+            minlength: 15
+        },
+        npwp: {
+          required: true,
+          number:true,
+          minlength: 5
+        },
+        pass: {
+            required: true,
+            minlength: 5
+        },
+        pekerjaan: "required",
+        alamat: {
+          required: true,
+          minlength: 10,
+        },
+        telp: {
+          required: true,
+          number: true
+        },
+        ket: "required",
+        email: {
+          required: true,
+          email: true,
+        },
+        },
+        messages: {
+          nama_lengkap: "<span style='color: red;'>Nama tidak boleh kosong</span>",
+          nomor_identitas: {
+            required: "<span style='color: red;'>Nomor identitas tidak boleh kosong</span>",
+            number: "<span style='color: red;'>Nomor identitas harus angka</span>",
+            minlength: "<span style='color: red;'>Nomor identitas harus 16 karakter angka</span>",
+          },
+          pass: {
+            required: "<span style='color: red;'>Password tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Kata sandi harus lebih dari 5 karakter</span>"
+          },
+          jenis_pemohon: "<span style='color: red;'>Silakan pilih data pemohon</span>",
+          jenis_identitas: "<span style='color: red;'>Silakan pilih data identitas</span>",
+          file_identitas: {
+            required: "<span style='color: red;'>File tidak boleh kosong</span>",
+            extension: "<span style='color: red;'>Format File harus pdf atau jpg</span>",
+            filesize: "<span style='color: red;'>Ukuran tidak boleh lebih dari 2MB</span>",
+          },
+          npwp: {
+            required: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+            number: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+            minlength: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+          },
+          pekerjaan: "<span style='color: red;'>Pekerjaan tidak boleh kosong</span>",
+          alamat: {
+            required: "<span style='color: red;'>Alamat tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Alamat harus lebih dari 10 karekter</span>",
+          },
+          telp: {
+            required: "<span style='color: red;'>Telpom tidak boleh kosong</span>",
+            number: "<span style='color: red;'>telepon harus angka</span>",
+          },
+          ket: "<span style='color: red;'>keterangan harus diisi</span>",
+          email: {
+            required: "<span style='color: red;'>Email tidak boleh kosong</span>",
+            email: "<span style='color: red;'>Format Email harus sesuai</span>",
+          }
+
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+    });
   });
  
   
