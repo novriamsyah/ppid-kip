@@ -654,7 +654,7 @@
       rules: {
         nama_lengkap: "required",
         jenis_pemohon: "required",
-        jenis_identitas: "required",
+        "jenis_identitas[]": "required",
         file_identitas: {
           required: true,
           extension: "pdf|jpg|jpeg",
@@ -701,7 +701,7 @@
             minlength: "<span style='color: red;'>Kata sandi harus lebih dari 5 karakter</span>"
           },
           jenis_pemohon: "<span style='color: red;'>Silakan pilih data pemohon</span>",
-          jenis_identitas: "<span style='color: red;'>Silakan pilih data identitas</span>",
+          "jenis_identitas[]": "<span style='color: red;'>Silakan pilih data identitas</span>",
           file_identitas: {
             required: "<span style='color: red;'>File tidak boleh kosong</span>",
             extension: "<span style='color: red;'>Format File harus pdf atau jpg</span>",
