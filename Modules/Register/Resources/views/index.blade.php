@@ -318,7 +318,7 @@
               <a id="tambahFormIdentitas" role="button"><i class="fas fa-plus-circle fa-2x"></i>
               
             </div>
-            <div id="tambahIdentitas2">
+            <div id="tambahIdentitas2" style="display: none">
               <select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas"> 
                 <option disabled selected value="">Jenis NIK</option> 
                 @foreach($j_identitas as $it_identy)
@@ -623,11 +623,9 @@
     $("#pemohon").change(function() {
       $(this).find("option:selected").each(function() {
         var optionNilai = $(this).attr("nilai");
-        // console.log(optionNilai);
         $("#tambahIdentitas").hide();
         $("#tambahIdentitas2").hide();
         if(optionNilai == "Kelompok Orang") {
-          // console.log('ok');
           $("#tambahIdentitas").show();
           $("#tambahIdentitas2").show();
         } else {
@@ -662,7 +660,7 @@
           extension: "pdf|jpg|jpeg",
           filesize: 2
         },
-        nomor_identitas: {
+        "nomor_identitas[]": {
             required: true,
             number:true,
             minlength: 15
@@ -670,7 +668,7 @@
         npwp: {
           required: true,
           number:true,
-          minlength: 5
+          minlength: 15
         },
         pass: {
             required: true,
@@ -693,7 +691,7 @@
         },
         messages: {
           nama_lengkap: "<span style='color: red;'>Nama tidak boleh kosong</span>",
-          nomor_identitas: {
+          "nomor_identitas[]": {
             required: "<span style='color: red;'>Nomor identitas tidak boleh kosong</span>",
             number: "<span style='color: red;'>Nomor identitas harus angka</span>",
             minlength: "<span style='color: red;'>Nomor identitas harus 16 karakter angka</span>",
