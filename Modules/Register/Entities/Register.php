@@ -11,6 +11,8 @@ class Register extends Model
 
     protected $table = "register";
 
+    protected $guard = 'regis_guard';
+
     protected $guarded = [];
 
     protected $casts = [

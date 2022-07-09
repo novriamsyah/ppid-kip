@@ -3,5 +3,7 @@
     "Pemohon": true,
     "Identitas": true,
     "Pekerjaan": true,
-    "Register": true
+    "Register": true,
+    "Login": true,
+    "Template": true
 }

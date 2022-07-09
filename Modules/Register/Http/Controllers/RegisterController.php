@@ -41,6 +41,12 @@ class RegisterController extends Controller
         }
     }
 
+    public function halamanRegister() 
+    {
+        $regis_user = Register::all();
+        return view('register::kelola_register', compact('regis_user'));
+    }
+
      /**
      * Store a newly created resource in storage.
      * @param Request $request

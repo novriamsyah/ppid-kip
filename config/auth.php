@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'regis_guard' => [
+            'driver' => 'session',
+            'provider' => 'regis_user',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'regis_user' => [
+            'driver' => 'eloquent',
+            'model' => Modules\Register\Entities\Register::class,
         ],
 
         // 'users' => [

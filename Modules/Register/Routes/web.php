@@ -17,3 +17,9 @@ Route::prefix('register')->group(function() {
 
 Route::post('/simpan_register', 'RegisterController@simpanRegister');
 Route::post('/getidentitas', 'RegisterController@getidentitas')->name('getidentitas');
+
+Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
+
+    Route::get('/kelola_register', 'RegisterController@halamanRegister');
+
+});

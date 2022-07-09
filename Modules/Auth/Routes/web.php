@@ -13,7 +13,7 @@
 
 Route::prefix('auth')->group(function() {
     Route::get('/login', 'AuthController@halaman_login')->name('auth.login');
-    Route::post('/register', 'AuthController@halaman_register')->name('auth.register');
+    // Route::post('/register', 'AuthController@halaman_register')->name('auth.register');
     Route::post('/login_verifikasi', 'AuthController@verifikasiLogin')->name('auth.verifikasi');
     Route::get('/logout', 'AuthController@prosesLogout');
 });
