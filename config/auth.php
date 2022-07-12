@@ -40,9 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'regis_guard' => [
+        'reg_user' => [
             'driver' => 'session',
-            'provider' => 'regis_user',
+            'provider' => 'reg_users',
+        ],
+        'pengguna' => [
+            'driver' => 'session',
+            'provider' => 'penggunas',
+        ],
+        'daftar' => [
+            'driver' => 'session',
+            'provider' => 'daftars',
         ],
     ],
 
@@ -68,7 +76,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'regis_user' => [
+        'reg_users' => [
+            'driver' => 'eloquent',
+            'model' => Modules\Register\Entities\Register::class,
+        ],
+        'penggunas' => [
+            'driver' => 'eloquent',
+            'model' => Modules\Register\Entities\Register::class,
+        ],
+        'daftars' => [
             'driver' => 'eloquent',
             'model' => Modules\Register\Entities\Register::class,
         ],
@@ -98,6 +114,24 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'reg_users' => [
+            'provider' => 'reg_users',
+            'table' => 'register',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'penggunas' => [
+            'provider' => 'penggunas',
+            'table' => 'register',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'daftars' => [
+            'provider' => 'daftars',
+            'table' => 'register',
             'expire' => 60,
             'throttle' => 60,
         ],

@@ -11,6 +11,11 @@ use Modules\Register\Entities\Register;
 use Modules\Pekerjaan\Entities\KelompokPekerjaan;
 use Modules\Identitas\Entities\JenisIdentitas as identitas;
 use Modules\Pemohon\Entities\JenisPemohon;
+use Modules\Template\Entities\Template;
+use Modules\Register\Entities\VerifyUser;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -27,7 +32,7 @@ class RegisterController extends Controller
         ->select('jenis_identitas.jenis_identitas', 'jenis_identitas.id')
         ->join('jenis_pemohon', 'jenis_pemohon.id','=','jenis_identitas.id_jenis_pemohon')->where('jenis_pemohon.jenis_pemohon', '=', 'Kelompok Orang')->get();
         // dd($j_identitas);
-         return view('register::index', compact('kerja', 'identitas', 'pemohon', 'j_identitas'));
+         return view('register::index', compact('kerja', 'identitas', 'pemohon', 'j_identitas')); 
     }
 
     public function getidentitas(Request $req) {
@@ -73,8 +78,40 @@ class RegisterController extends Controller
         // // $testa = json_encode($datas);
 
         // dd($regis_user);
-        $regis_user->save();
-        return redirect('/register');
+        $simpan = $regis_user->save();
+        $last_id = $regis_user->id;
+        $token = $last_id.hash('sha256', Str::random(120));
+        $verifyUrl = VerifyUser::create([
+            'user_id'=>$last_id,
+            'token'=>$token
+        ]);
+
+        $nama_usr = $req->nama_lengkap;
+        $message = 'Haloo <b>'.$req->nama_lengkap.'</b>';
+        $message = 'Terima kasih sudah mendaftarkan akun, selanjutnya kamu harus melakukan verifikasi ke email';
+
+        $email_data = [
+            'recipient'=>$req->email,
+            'fromEmail'=>$req->email,
+            'fromName'=>$req->nama_lengkap,
+            'subject'=>'Email Verifikasi',
+            'body'=>$message,
+            'actionLink'=>$verifyUrl,
+            'token'=>$token,
+        ];
+
+        Mail::send('register::email_template',['last_id'=>$last_id, 'token'=>$token, 'email_data'=>$email_data, 'nama_usr'=>$nama_usr], function($message) use ($email_data){
+            $message->to($email_data['recipient'])
+            ->from($email_data['fromEmail'], $email_data['fromName'])
+            ->subject($email_data['subject']);
+        });
+
+        if($simpan) {
+            return redirect()->route('loginus')->with('success', 'kamu berhasil daftar, silahkan verifikasi lewat EMAIL');
+        } else {
+            return redirect()->route('loginus')->with('fail', 'kamu gagal daftar');
+        }
+
 
         // dd(json_encode($req->jenis_identitas));
         
@@ -87,6 +124,27 @@ class RegisterController extends Controller
 
 
 
+    }
+
+    public function verify($id, $token)
+    {
+        // $token = $request->token;
+        $verifyUser = VerifyUser::where('token', $token)->first();
+        // dd($verifyUser);
+        if (!is_null($verifyUser)){
+            // echo "ada";
+            $penggunas = Register::where('id', $id)->first();
+            // dd($penggunas);
+
+            if(!$penggunas->email_verifikasi){
+                $penggunas->email_verifikasi = 1;
+                $penggunas->save();
+                return redirect()->route('loginus')->with('info', 'Email sudah diverifikasi, silahkan login');
+
+            } else {
+                return redirect()->route('loginus')->with('info', 'Email sudah siap digunakan, silahkan login')->with('verifiedEmail', $verifyUser->email);
+            }
+        }
     }
 
 }

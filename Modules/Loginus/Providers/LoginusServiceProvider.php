@@ -1,21 +1,21 @@
 <?php
 
-namespace Modules\Register\Providers;
+namespace Modules\Loginus\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class RegisterServiceProvider extends ServiceProvider
+class LoginusServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Register';
+    protected $moduleName = 'Loginus';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'register';
+    protected $moduleNameLower = 'loginus';
 
     /**
      * Boot the application events.
@@ -28,8 +28,6 @@ class RegisterServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-
-        app()->make('router')->aliasMiddleware('daftar', \Modules\Register\Http\Middleware\IsUserVerifyEmail::class);
     }
 
     /**

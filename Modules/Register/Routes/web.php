@@ -18,6 +18,15 @@ Route::prefix('register')->group(function() {
 Route::post('/simpan_register', 'RegisterController@simpanRegister');
 Route::post('/getidentitas', 'RegisterController@getidentitas')->name('getidentitas');
 
+//verifikasi email register
+Route::get('/veri_email/{id}/{token}', 'RegisterController@verify')->name('verify_user');
+
+//reset pass
+// Route::get('/forget-password', 'ForgotPasswordController@showForget')->name('forget.password.get');
+Route::post('/forget-password', 'ForgotPasswordController@submitForget')->name('forget.password.post');
+Route::get('/reset-password/{token}', 'ForgotPasswordController@showReset')->name('reset.password.get');
+Route::post('/reset-password', 'ForgotPasswordController@submitReset')->name('reset.password.post');
+
 Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
 
     Route::get('/kelola_register', 'RegisterController@halamanRegister');

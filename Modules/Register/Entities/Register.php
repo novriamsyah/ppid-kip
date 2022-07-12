@@ -4,16 +4,33 @@ namespace Modules\Register\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Register extends Model
+class Register extends Authenticatable 
 {
     use HasFactory;
 
     protected $table = "register";
 
-    protected $guard = 'regis_guard';
+    protected $guard = 'daftar';
 
     protected $guarded = [];
+    
+    protected $fillable = [
+        'nama_lengkap',
+        'email',
+        'email_verifikasi',
+        'pass',
+        'jenis_pemohon',
+        'jenis_identitas',
+        'nomor_identitas',
+        'file_identitas',
+        'npwp',
+        'pekerjaan',
+        'alamat',
+        'telp',
+        'ket'
+    ];
 
     protected $casts = [
         'jenis_identitas' => 'array',

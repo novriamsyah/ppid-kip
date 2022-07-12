@@ -16,7 +16,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:regis_guard')->except('logout');
+        $this->middleware('reg_user')->except('logout');
     }
     /**
      * Display a listing of the resource.
@@ -39,15 +39,15 @@ class LoginController extends Controller
         // // Session::flash('gagal_login', 'Maaf email atau password anda salah');
     	// return redirect('/login');
 
-        dd(Auth::guard('regis_guard')->attempt(['email'=>$request->email, 'pass'=>$request->pass]));
+        // dd(Auth::guard('reg_user')->attempt(['email'=>$request->email, 'pass'=>$request->pass]));
 
-        // if(Auth::guard('regis_guard')->attempt($request->only('email', 'pass')))
-    	// {
-        //     // dd(Auth::user()->role);
-    	// 	return redirect('/register');
-    	// }
-        // // Session::flash('gagal_login', 'Maaf email atau password anda salah');
-    	// return redirect('/login');
+        if(Auth::guard('reg_user')->attempt($request->only('email', 'pass')))
+    	{
+            // dd(Auth::user()->role);
+    		return redirect('/register');
+    	}
+        // Session::flash('gagal_login', 'Maaf email atau password anda salah');
+    	return redirect('/login');
 
     //     $regis = $this->loginGuard($request->get('email'), $request->get('pass'), auth('regis_guard'));
 
