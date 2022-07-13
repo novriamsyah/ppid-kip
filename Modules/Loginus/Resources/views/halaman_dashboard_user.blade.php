@@ -40,6 +40,7 @@
         <div class="bg-danger text-white pt-2 pb-2">
           <div class="container-xl">
             <div class="text-center text-lg-end">
+                
               <ul
                 class="social-icons list-unstyled list-inline mb-0 mt-auto w-100"
               >
@@ -72,8 +73,12 @@
                   <a href="#" 
                     ><i class="fab fa-youtube"></i
                   ></a>
+                @php
+                $ambil_nama = Session::get('email');
+                @endphp
+                @if (session()->has('id'))
                 </li>
-
+                {{-- session()->has('id') --}}
                 <li class="list-inline-item">
                     
                 </li>
@@ -81,15 +86,18 @@
                     
                 </li>
                 <li class="list-inline-item">
-                    @php
-                    $ambil_nama = Session::get('nama_ambil');
-                    @endphp
-                    <span style="font-size: 12px">{{$ambil_nama}}</span>
-                    <a class="dropdown-toggle" href="#" 
-                      ><i class="fas fa-user-circle"></i
-                    ></a>
+                    <div class="dropdown show">
+                        <span style="font-size: 12px">{{$ambil_nama}}</span>
+                        <a class="dropdown-toggle" href="#" 
+                        ><i class="fas fa-user-circle"></i
+                        ></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a href="" class="dropdown-item">Logout</a>
+                        </div>
+                    </div>
+                    
                 </li>
-
+                @endif
               </ul>
             </div>
           </div>
@@ -279,7 +287,7 @@
                   <a class="nav-link" href="ppid.html">PPID</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="login.html">Login</a>
+                  <a class="nav-link" href="{{route('loginus')}}">Login</a>
                 </li>
               </ul>
             </div>
