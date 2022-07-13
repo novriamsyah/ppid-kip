@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         // 'checkRole' => \App\Http\Middleware\CheckRole::class,
         'auth2' => \Modules\Auth\Http\Middleware\CheckRole::class,
         'is_user_verify' => \Modules\Register\Http\Middleware\IsUserVerifyEmail::class,
+        'sess_user'=> \Modules\Loginus\Http\Middleware\Custom_login::class,
     ];
 }

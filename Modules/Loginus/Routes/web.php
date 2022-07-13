@@ -16,3 +16,6 @@ Route::prefix('loginus')->group(function() {
 });
 
 Route::post('/verifikasi_us', 'LoginusController@verifikasiLogin')->name('login.verifikasius');
+Route::get('/halaman_utama', 'LoginusController@halaman_utama')->name('hal.utama');
+
+// Route::middleware(['sess_user'])->get()

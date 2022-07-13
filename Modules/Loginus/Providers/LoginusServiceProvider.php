@@ -28,6 +28,8 @@ class LoginusServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        app()->make('router')->aliasMiddleware('sess_user', \Modules\Loginus\Http\Middleware\Custom_login::class);
     }
 
     /**

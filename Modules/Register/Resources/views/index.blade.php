@@ -361,7 +361,7 @@
 					</div>
           <div class="text-end">
               <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
-              <a href="{{url('/login')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
+              <a href="{{url('/loginus')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
           </div>
 				</form>
 		</div>

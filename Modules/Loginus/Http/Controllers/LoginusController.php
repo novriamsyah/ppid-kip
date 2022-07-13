@@ -23,6 +23,7 @@ class LoginusController extends Controller
     {
         $register = Register::all();
         return view('loginus::index', compact('register'));
+        // return view('loginus::halaman_dashboard_user');
     }
 
     public function verifikasiLogin(Request $request)
@@ -46,6 +47,9 @@ class LoginusController extends Controller
         ->where('email', $request->email)
         ->first();
 
+        $nama_ambil = $pengguna->nama_lengkap;
+        $id_ambil = $pengguna->id;
+
         // dd($pengguna);
 
         if(!$pengguna || empty($pengguna)) {
@@ -56,7 +60,9 @@ class LoginusController extends Controller
             if (Hash::check($request->pass, $pengguna->pass)) {
                 $request->session()->put('id', $pengguna->id);
                 $request->session()->put('email', $pengguna->email);
-                return redirect('/register');
+                // return redirect('/register');
+                // return redirect()->intended('halaman_utama');
+                return redirect()->route('hal.utama')->with(['nama_ambil'=>$nama_ambil, 'id_ambil'=>$id_ambil]);
             } else {
                 return back()->with('failed', 'Password yang kamu masukan salah');
             }
@@ -69,6 +75,10 @@ class LoginusController extends Controller
         //     }
         // }
         
+    }
+
+    public function halaman_utama() {
+        return view('loginus::halaman_dashboard_user');
     }
 
 }

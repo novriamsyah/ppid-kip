@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('fron_asset/css/slick.css') }}" type="text/css"  media="all" />
     <link rel="stylesheet" href="{{ asset('fron_asset/css/simple-line-icons.css') }}" type="text/css" media="all"/>
     <link rel="stylesheet"  href="{{ asset('fron_asset/css/style.css') }}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+    <link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 	
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -524,6 +526,17 @@
 <script src="{{ asset('fron_asset/js/jquery.sticky-sidebar.min.js') }}"></script>
 <script src="{{ asset('fron_asset/js/custom.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
+<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
 
 </body>
 </html>
+
+@if ($message = Session::get('tersimpan'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+@endif

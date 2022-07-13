@@ -33,6 +33,7 @@ class RegisterController extends Controller
         ->join('jenis_pemohon', 'jenis_pemohon.id','=','jenis_identitas.id_jenis_pemohon')->where('jenis_pemohon.jenis_pemohon', '=', 'Kelompok Orang')->get();
         // dd($j_identitas);
          return view('register::index', compact('kerja', 'identitas', 'pemohon', 'j_identitas')); 
+        // return view('register::forget_password.template_email');
     }
 
     public function getidentitas(Request $req) {
@@ -107,6 +108,7 @@ class RegisterController extends Controller
         });
 
         if($simpan) {
+            Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
             return redirect()->route('loginus')->with('success', 'kamu berhasil daftar, silahkan verifikasi lewat EMAIL');
         } else {
             return redirect()->route('loginus')->with('fail', 'kamu gagal daftar');
