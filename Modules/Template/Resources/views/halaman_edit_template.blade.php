@@ -9,8 +9,8 @@
 @section('content')
 <div class="row page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Kategori</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Data kategori</a></li>
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Template</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Data Template Email</a></li>
     </ol>
 </div>
 <!-- row -->
@@ -18,7 +18,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Edit Data Kategori</h4>
+                <h4 class="card-title">Edit Data Template Email</h4>
             </div>
             <div class="card-body">
                 <div class="form-validation">

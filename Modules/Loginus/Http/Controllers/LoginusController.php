@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Register\Entities\Register;
+use Modules\Pekerjaan\Entities\KelompokPekerjaan;
 
 class LoginusController extends Controller
 {
@@ -23,7 +24,6 @@ class LoginusController extends Controller
     {
         $register = Register::all();
         return view('loginus::index', compact('register'));
-        // return view('loginus::halaman_dashboard_user');
     }
 
     public function verifikasiLogin(Request $request)
@@ -60,6 +60,7 @@ class LoginusController extends Controller
             if (Hash::check($request->pass, $pengguna->pass)) {
                 $request->session()->put('id', $pengguna->id);
                 $request->session()->put('email', $pengguna->email);
+                $request->session()->put('nama', $pengguna->nama_lengkap);
                 // return redirect('/register');
                 // return redirect()->intended('halaman_utama');
                 return redirect()->route('hal.utama')->with(['nama_ambil'=>$nama_ambil, 'id_ambil'=>$id_ambil]);
@@ -67,11 +68,12 @@ class LoginusController extends Controller
                 return back()->with('failed', 'Password yang kamu masukan salah');
             }
         }
-
         // public function signout() {
         //     if(session()->has('id')){
+        //         session()->pull('id');
         //         session()->pull('email');
-        //         return redirect('/login');
+        //         session()->pull('nama');
+        //         return redirect()->route('hal.utama');
         //     }
         // }
         
@@ -79,6 +81,55 @@ class LoginusController extends Controller
 
     public function halaman_utama() {
         return view('loginus::halaman_dashboard_user');
+    }
+
+    public function profilUser() {
+        $ambil_email = session()->get('email');
+
+        $cek_db = DB::table('register')
+        ->where('email', $ambil_email)
+        ->first();
+
+        $cek_db_id = $cek_db->pekerjaan;
+
+        $cek_db2 = DB::table('jenis_pemohon')
+        ->where('id', $cek_db->jenis_pemohon)
+        ->first();
+
+        $cek_db3 = DB::table('pekerjaan')
+        ->where('id', $cek_db->pekerjaan)
+        ->first();
+
+        $kerja = KelompokPekerjaan::all();
+        
+        // dd($cek_db3);
+        return view('loginus::profil_user', ['d_user'=>$cek_db, 'd_user2'=>$cek_db2, 'd_user3'=>$cek_db3, 'kerja'=>$kerja, 'cek_id'=>$cek_db_id]);
+    }
+
+    public function profilUserEdit(Request $request) {
+        // $ambil = $request->all();
+        // dd($ambil);
+        // dd($request->id);
+
+        $updateUser = Register::where('id', $request->id)
+        ->update([
+            'nama_lengkap'=>$request->nama_lengkap,
+            'npwp'=>$request->npwp,
+            'alamat'=>$request->alamat,
+            'telp'=>$request->telp,
+            'ket'=>$request->ket,
+            'pekerjaan'=>$request->pekerjaan
+        ]);
+        return redirect('/profil_user')->with('success', 'Data profil kamu berhasil diubah');
+    }
+
+    public function signout() {
+            if(session()->has('id')){
+                session()->pull('id');
+                session()->pull('email');
+                session()->pull('nama');
+                return redirect()->route('hal.utama');
+            }
     }
 
 }

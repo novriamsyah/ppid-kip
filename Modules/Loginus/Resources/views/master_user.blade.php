@@ -8,25 +8,27 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('fron_asset/images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('fron_asset/images/favicon.png')}}" />
 
     <!-- STYLES -->
-    <link rel="stylesheet" href="{{ asset('fron_asset/css/bootstrap.min.css') }}" type="text/css" media="all" />
-    <link rel="stylesheet" href="{{ asset('fron_asset/css/all.min.css') }}" type="text/css" media="all" />
-    <link rel="stylesheet" href="{{ asset('fron_asset/css/slick.css') }}" type="text/css"  media="all" />
-    <link rel="stylesheet" href="{{ asset('fron_asset/css/simple-line-icons.css') }}" type="text/css" media="all"/>
-    <link rel="stylesheet"  href="{{ asset('fron_asset/css/style.css') }}" type="text/css" media="all"/>
-    <link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
-    <link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
-	
+    <link rel="stylesheet" href="{{ asset('fron_asset/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('fron_asset/css/all.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('fron_asset/css/slick.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('fron_asset/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('fron_asset/css/simple-line-icons.css')}}"/>
+    <!-- Propeller css -->
+    <link href="{{ asset('fron_asset/css/propeller.min.css')}}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    @yield('css')
   </head>
 
   <body>
+
     <div id="preloader">
       <div class="loading">
-        <img src="{{ asset('fron_asset/images/Spinner-1s-200px.gif') }}">
+        <img src="{{ asset('fron_asset/images/Spinner-1s-200px.gif')}}">
       </div>
     </div>
     <!-- site wrapper -->
@@ -34,11 +36,11 @@
       <div class="main-overlay"></div>
 
       <!-- header -->
-
       <header class="header-default">
         <div class="bg-danger text-white pt-2 pb-2">
           <div class="container-xl">
             <div class="text-center text-lg-end">
+                
               <ul
                 class="social-icons list-unstyled list-inline mb-0 mt-auto w-100"
               >
@@ -71,7 +73,6 @@
                   <a href="#" 
                     ><i class="fab fa-youtube"></i
                   ></a>
-                </li>
               </ul>
             </div>
           </div>
@@ -82,11 +83,14 @@
           <div class="container">
             <!-- site logo -->
             <a class="navbar-brand" href="index.html"
-              ><img style="max-width: 235px" src="{{ asset('fron_asset\images\logo.png') }}" alt="logo"
+              ><img style="max-width: 235px" src="{{asset('fron_asset/images\logo.png')}}" alt="logo"
             /></a>
 
             <div class="collapse navbar-collapse" style="flex-grow: unset">
               <!-- menus -->
+              @php
+                $ambil_nama = Session::get('nama');
+                @endphp
               <ul
                 class="navbar-nav mr-auto"
                 style="font-size: 1rem; font-weight: bold"
@@ -260,9 +264,36 @@
                 <li class="nav-item">
                   <a class="nav-link" href="ppid.html">PPID</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">Login</a>
+                @if (session()->has('id'))
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    >{{$ambil_nama}}</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="{{route('profil_us')}}"
+                        >Kelola Profil</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        >Ubah Password</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{route('signout.user')}}"
+                        >Logout</a
+                      >
+                    </li>
+                  </ul>
                 </li>
+                @else
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('loginus')}}">Login</a>
+                </li>
+                @endif
               </ul>
             </div>
 
@@ -287,93 +318,37 @@
         </nav>
       </header>
 
-	<div class="container ">
-		<div class="row p-5">
-			<div class="col-md">
-				<p style="font-size: 1.2rem; font-weight: bold;">Silahkan Login untuk mengajukan permintaan informasi dan keberatan serta untuk mengetahui status permintaan informasi dan keberatan yang sudah diajukan.</p>
-			</div>
-			<div class="col-md shadow p-3 bg-white rounded">
-				<p class="text-center" style="font-size: 1.5rem; font-weight: bold;">Masuk</p>
-                @if (Session::has('message'))
-                <div class="alert alert-success" role="alert">
-                  {{ Session::get('message') }}
-              </div>
-                @endif
-                @if($message = Session::get('gagal_login'))
-                    <div class="alert alert-danger solid alert-end-icon alert-dismissible fade show" style="margin-top: 15px; margin-bottom: 4px;">
-                        <span><i class="mdi mdi-help"></i></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close" aria-hidden="true">
-                        </button>
-                        <strong>Peringatan!</strong> {{ $message }}
-                    </div>
-                @endif
-				<form action="{{ route('login.verifikasius') }}" method="POST" name="form_login">
-          @if(Session::get('success'))
-          <div class="alert alert-danger">
-            {{Session::get('success')}}
-          </div>
-          @endif
-          @if(Session::get('fail'))
-          <div class="alert alert-danger">
-            {{Session::get('fail')}}
-          </div>
-          @endif
-          @if(Session::get('failed'))
-          <div class="alert alert-danger">
-            {{Session::get('failed')}}
-          </div>
-          @endif
-          @if(Session::get('info'))
-          <div class="alert alert-info">
-            {{Session::get('info')}}
-          </div>
-          @endif
+      <!-- portal -->
+      <style>
+        .card-body{
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          color: white;
+          background: rgba(186, 19, 26, 0.2);
+        }
 
-           @csrf
-					<div class="mb-3">
-					  <input type="email" name="email" placeholder="Email address" class="form-control" required autocomplete="email" autofocus aria-describedby="emailHelp">
-					</div>
-					<div class="mb-3">
-					  <input type="password" placeholder="Password" class="form-control" name="pass" required autocomplete="current-password">
-					</div>
-					<div class="d-flex justify-content-between">
-						<div class=" mb-3 form-check">
-							<input type="checkbox" class="form-check-input" id="exampleCheck1">
-							<label class="form-check-label" for="exampleCheck1">Remember me</label>
-						  </div>
-						
-							<a href="#" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">Lupa password ?</a>
-						
-					</div>
-					
-					<button type="submit" class="btn w-100" style="background-color:#ba131a ;">Masuk</button>
-					<p class="text-end">Belum terdaftar? <a href="{{url('/register')}}">Daftar</a></p>
-				  </form>
-			</div>
-		</div>
-		
-	</div>
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content p-4">
-        <p style="font-size: 1rem; font-weight:bold;">Masukan Email Login</p>
-        <form action="{{ route('forget.password.post') }}" method="POST">
-          @csrf
-        <div class="mb-3">
-          <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"required autofocus>
-          @if ($errors->has('email'))
-              <span class="text-danger">{{ $errors->first('email') }}</span>
-          @endif
+        .card-title{
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      </style>
+
+
+
+      <!-- section main content -->
+      <section class="main-content">
+        <div class="container">
+            @yield('content')
         </div>
-        <button type="submit" class="btn mb-1" style="background-color:#ba131a ;">
-          Kirim
-       </button>
-        <button class="btn text-danger" type="button" data-bs-dismiss="modal">Batal</button>
+      </section>
+
+      <!-- Floating Action Button like Google Material -->
+      <div class="menu pmd-floating-action rounded-pill border border-2"  role="navigation" style="width: 254px; background-color: #ba131a;"> 
+        <button class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect  w-100" type="button">Komisi Informasi Pusat </button>
       </div>
-    </form>
-    </div>
-  </div>
-    	<!-- footer -->
+      <!-- footer -->
       <footer class="mt-4">
         <div class="container">
           <div class="footer-inner">
@@ -422,7 +397,7 @@
                 </ul>
               </div>
               <div class="col-md text-center">
-                <img class="pb-1" style="max-width: 100%;" src="images/image-removebg-preview.png" alt="logo">
+                <img class="pb-1" style="max-width: 100%;" src="{{ asset('fron_asset/images/image-removebg-preview.png')}}" alt="logo">
                 <ul class="social-icons list-unstyled list-inline mb-0">
                   <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                   <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -463,87 +438,91 @@
           </div>
         </div>
       </footer>
+    <!-- end site wrapper -->
 
-</div><!-- end site wrapper -->
+    <!-- canvas menu -->
+    <div class="canvas-menu d-flex align-items-end flex-column">
+      <!-- close button -->
+      <button type="button" class="btn-close" aria-label="Close"></button>
 
-<!-- canvas menu -->
-<div class="canvas-menu d-flex align-items-end flex-column">
-	<!-- close button -->
-	<button type="button" class="btn-close" aria-label="Close"></button>
+      <!-- logo -->
+      <div class="logo">
+        <img src="{{ asset('fron_asset\images\logo.png')}}" alt="Logo" />
+      </div>
 
-	<!-- logo -->
-	<div class="logo">
-		<img src="images\logo.png" alt="Logo" />
-	</div>
+      <!-- menu -->
+      <nav>
+        <ul class="vertical-menu">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li>
+            <a href="category.html">Publikasi</a>
+            <ul class="submenu">
+              <li><a href="e-lhkpn.html">E-LHKPN</a></li>
+              <li><a href="e-lhkpn.html">Video</a></li>
+              <li><a href="laporan.html">Laporan</a></li>
+              <li><a href="kerjasama.html">Kerjasama</a></li>
+              <li><a href="pustaka.html">Pustaka</a></li>
+              <li><a href="#">KI Provinsi</a></li>
+              <li><a href="rakernis.html">RAKERNIS</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="regulasi.html">Regulasi</a>
+            <ul class="submenu">
+              <li><a href="undang-undang.html">Undang - Undang</a></li>
+              <li><a href="pemerintah.html">Pemerintah</a></li>
+              <li><a href="presiden.html">Presiden</a></li>
+              <li>
+                <a href="komisi-informasi.html">Komisi Informasi</a>
+              </li>
+              <li><a href="surat-edaran.html">Surat Edaran</a></li>
+            </ul>
+          </li>
+          <li><a href="ppid.html">PPID</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
 
-	<!-- menu -->
-	<nav>
-		<ul class="vertical-menu">
-			<li class="active"><a href="index.html">Home</a></li>
-			<li><a href="profile.html">Profile</a></li>
-			<li>
-				<a href="category.html">Publikasi</a>
-				<ul class="submenu">
-					<li><a href="e-lhkpn.html">E-LHKPN</a></li>
-					<li><a href="laporan.html">Laporan</a></li>
-					<li><a href="kerjasama.html">Kerjasama</a></li>
-					<li><a href="pustaka.html">Pustaka</a></li>
-					<li><a href="#">KI Provinsi</a></li>
-					<li><a href="rakernis.html">RAKERNIS</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="regulasi.html">Regulasi</a>
-				<ul class="submenu">
-					<li><a href="undang-undang.html">Undang - Undang</a></li>
-					<li><a href="pemerintah.html">Pemerintah</a></li>
-					<li><a href="presiden.html">Presiden</a></li>
-					<li><a href="komisi-informasi.html">Komisi Informasi</a></li>
-					<li><a href="surat-edaran.html">Surat Edaran</a></li>
-				</ul>
-			</li>
-			<li><a href="ppid.html">PPID</a></li>
-			<li><a href="login.html">Login</a></li>
-		</ul>
-	</nav>
+      <!-- social icons -->
+      <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </li>
+      </ul>
+    </div>
 
-	<!-- social icons -->
-	<ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
-		<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-		<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-		<li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-		<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-		<li class="list-inline-item"><a href="#"><i class="fab fa-medium"></i></a></li>
-		<li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
-	</ul>
-</div>
-
-<!-- JAVA SCRIPTS -->
-<script src="{{ asset('fron_asset/js/jquery.min.js') }}"></script>
-<script src="{{ asset('fron_asset/js/popper.min.js') }}"></script>
-<script src="{{ asset('fron_asset/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('fron_asset/js/slick.min.js') }}"></script>
-<script src="{{ asset('fron_asset/js/jquery.sticky-sidebar.min.js') }}"></script>
-<script src="{{ asset('fron_asset/js/custom.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
-<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
-<script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
-
-</body>
+    <!-- JAVA SCRIPTS -->
+    <script src="{{ asset('fron_asset/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/popper.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/slick.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/jquery.sticky-sidebar.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/custom.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+      integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript" src="{{ asset('fron_asset/js/propeller.min.js')}}"></script>
+    <script src="{{ asset('fron_asset/js/diagram.js')}}"></script>
+    @yield('script')
+  </body>
 </html>
-
-@if ($message = Session::get('tersimpan'))
-        swal(
-            "berhasil",
-            "{{ $message }}",
-            "success"
-        )
-@endif
-@if ($message = Session::get('gagal'))
-        swal(
-            "Gagal",
-            "{{ $message }}",
-            "info"
-        )
-@endif

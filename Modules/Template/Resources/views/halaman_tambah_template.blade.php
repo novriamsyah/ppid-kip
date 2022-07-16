@@ -10,7 +10,7 @@
 <div class="row page-titles">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="javascript:void(0)">Master Data</a></li>
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Jenis Pemohon</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Template Email</a></li>
     </ol>
 </div>
 <!-- row -->
@@ -18,7 +18,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Data Jenis Pemohon Baru</h4>
+                <h4 class="card-title">Data Template Email Baru</h4>
             </div>
             <div class="card-body">
                 <div class="form-validation">

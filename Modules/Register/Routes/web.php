@@ -17,6 +17,7 @@ Route::prefix('register')->group(function() {
 
 Route::post('/simpan_register', 'RegisterController@simpanRegister');
 Route::post('/getidentitas', 'RegisterController@getidentitas')->name('getidentitas');
+Route::post('/getidentitas_m', 'RegisterController@getidentitasM')->name('getidentitas_m');
 
 //verifikasi email register
 Route::get('/veri_email/{id}/{token}', 'RegisterController@verify')->name('verify_user');

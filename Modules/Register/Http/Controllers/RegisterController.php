@@ -2,6 +2,7 @@
 
 namespace Modules\Register\Http\Controllers;
 
+use Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -43,6 +44,17 @@ class RegisterController extends Controller
         // var_dump($ambil_identitas);
 
         foreach($ambil_identitas as $iden) {
+            echo "<option value='$iden->jenis_identitas'>$iden->jenis_identitas</option>";
+        }
+    }
+
+    public function getidentitasM(Request $req) {
+        $id_pemohon_m = $req->id_pemohon;
+        $ambil_identitas_m = identitas::where('id_jenis_pemohon', $id_pemohon_m)->get();
+
+        // var_dump($ambil_identitas);
+
+        foreach($ambil_identitas_m as $iden) {
             echo "<option value='$iden->jenis_identitas'>$iden->jenis_identitas</option>";
         }
     }
@@ -93,8 +105,8 @@ class RegisterController extends Controller
 
         $email_data = [
             'recipient'=>$req->email,
-            'fromEmail'=>$req->email,
-            'fromName'=>$req->nama_lengkap,
+            'fromEmail'=>'ppid@komisiinformasi.go.id',
+            'fromName'=>'PPID Komisi Informasi Pusat',
             'subject'=>'Email Verifikasi',
             'body'=>$message,
             'actionLink'=>$verifyUrl,

@@ -2,6 +2,7 @@
 
 namespace Modules\Register\Http\Controllers;
 
+use Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -36,18 +37,39 @@ class ForgotPasswordController extends Controller
 
         $token = Str::random(64);
 
-        DB::table('ganti_password')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => Carbon::now()
-        ]);
+        $cek_email = DB::table('register')
+        ->where('email', $request->email)
+        ->first();
 
-        Mail::send('register::forget_password.template_email', ['token'=>$token], function($message) use ($request){
-            $message->to($request->email);
-            $message->subject('Reset password');
-        });
+        $email_data = [
+            'recipient'=>$request->email,
+            'fromEmail'=>'ppid@komisiinformasi.go.id',
+            'fromName'=>'PPID Komisi Informasi Pusat',
+            'subject'=>'Reset Password',
+            'token'=>$token,
+        ];
 
-        return back()->with('message', 'Buka email untuk melakukan reset password');
+        if(!$cek_email || empty($cek_email)) {
+            return back()->with('failed', 'Email untuk reset password tidak ditemukan, coba lagi !!');
+        } else {
+            DB::table('ganti_password')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+    
+            Mail::send('register::forget_password.template_email', ['token'=>$token, 'email_data'=>$email_data], function($message) use ($email_data){
+                $message->to($email_data['recipient'])
+                ->from($email_data['fromEmail'], $email_data['fromName'])
+                ->subject($email_data['subject']);
+                // $message->to($request->email);
+                // $message->from('ppid@komisiinformasi.go.id', 'PPID Komisi Informasi');
+                // $message->subject('Reset password');
+            });
+    
+            return back()->with('message', 'Buka email untuk melakukan reset password');
+        }
+        
     }
 
     /**

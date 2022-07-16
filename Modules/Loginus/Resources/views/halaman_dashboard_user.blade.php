@@ -73,31 +73,6 @@
                   <a href="#" 
                     ><i class="fab fa-youtube"></i
                   ></a>
-                @php
-                $ambil_nama = Session::get('email');
-                @endphp
-                @if (session()->has('id'))
-                </li>
-                {{-- session()->has('id') --}}
-                <li class="list-inline-item">
-                    
-                </li>
-                <li class="list-inline-item">
-                    
-                </li>
-                <li class="list-inline-item">
-                    <div class="dropdown show">
-                        <span style="font-size: 12px">{{$ambil_nama}}</span>
-                        <a class="dropdown-toggle" href="#" 
-                        ><i class="fas fa-user-circle"></i
-                        ></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a href="" class="dropdown-item">Logout</a>
-                        </div>
-                    </div>
-                    
-                </li>
-                @endif
               </ul>
             </div>
           </div>
@@ -113,6 +88,9 @@
 
             <div class="collapse navbar-collapse" style="flex-grow: unset">
               <!-- menus -->
+              @php
+                $ambil_nama = Session::get('nama');
+              @endphp
               <ul
                 class="navbar-nav mr-auto"
                 style="font-size: 1rem; font-weight: bold"
@@ -286,9 +264,36 @@
                 <li class="nav-item">
                   <a class="nav-link" href="ppid.html">PPID</a>
                 </li>
+                @if (session()->has('id'))
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    >{{$ambil_nama}}</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="{{route('profil_us')}}"
+                        >Kelola Profil</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        >Ubah Password</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{route('signout.user')}}"
+                        >Logout</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                @else
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('loginus')}}">Login</a>
                 </li>
+                @endif
               </ul>
             </div>
 

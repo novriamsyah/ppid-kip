@@ -92,6 +92,9 @@
             /></a>
 
             <div class="collapse navbar-collapse" style="flex-grow: unset">
+              @php
+                $ambil_nama = Session::get('nama');
+              @endphp
               <!-- menus -->
               <ul
                 class="navbar-nav mr-auto"
@@ -266,9 +269,36 @@
                 <li class="nav-item">
                   <a class="nav-link" href="ppid.html">PPID</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">Login</a>
+                @if (session()->has('id'))
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    >{{$ambil_nama}}</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="{{route('profil_us')}}"
+                        >Kelola Profil</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        >Ubah Password</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{route('signout.user')}}"
+                        >Logout</a
+                      >
+                    </li>
+                  </ul>
                 </li>
+                @else
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('loginus')}}">Login</a>
+                </li>
+                @endif
               </ul>
             </div>
 
@@ -370,68 +400,81 @@
 	</div>
 
 	<!-- mobile -->
-	<div class="container shadow p-3 mb-5 mt-5 bg-white rounded d-md-none">
-		<div class="row d-flex justify-content-center">
-				<p style="font-size: 1.5rem; font-weight:bold;" class="text-center">Daftar</p>
-				<form>
-          <div class="mb-3">
-						<input placeholder="Nama" class="form-control" id="exampleInputNama1" aria-describedby="NamaHelp">
-					  </div>
+	 <!-- mobile -->
+   <div class="container shadow p-3 mb-5 mt-5 bg-white rounded d-md-none">
+    <div class="row d-flex justify-content-center">
+      <p style="font-size: 1.5rem; font-weight:bold;" class="text-center">Daftar</p>
+      <form action="{{url('/simpan_register')}}" method="POST" enctype="multipart/form-data" name="pengguna_baru_form_m">
+        @csrf
+        <div class="mb-3">
+          <input placeholder="Nama" class="form-control" id="nama_lengkap" name="nama_lengkap" aria-describedby="NamaHelp">
+        </div>
+        <select class="form-select mb-4 rounded-pill" aria-label="Default select example" id="pemohon_m" name="jenis_pemohon">
+          <option disabled selected value="">Jenis Pemohonan</option>
+          @foreach($pemohon as $it_pmhn)
+          <option value="{{$it_pmhn->id}}" nilai="{{$it_pmhn->jenis_pemohon}}">{{$it_pmhn->jenis_pemohon}}</option>
+          @endforeach
+        </select>
+        <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="jenis_identitas[]" id="identitas_m">
+          <option disabled selected>Jenis NIK</option>
+        </select>
+        <div class="mb-3">
+          <input  placeholder="NIK" class="form-control" id="nomor_identitas" name="nomor_identitas[]" aria-describedby="NIKHelp">
+      </div>
+        <div id="tambahIdentitas_m" style="display: none">
+          <a id="tambahFormIdentitas_m" role="button"><i class="fas fa-plus-circle fa-2x"></i>
+          
+        </div>
+        <div id="tambahIdentitas2_m" style="display: none">
+          <select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas_m"> 
+            <option disabled selected value="">Jenis NIK</option> 
+            @foreach($j_identitas as $it_identy)
+            <option value="{{$it_identy->jenis_identitas}}">
+                {{$it_identy->jenis_identitas}}
+            </option> 
+            @endforeach
+          </select>
+            <div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div>
+            
+        </div>
+        <div id="tampungJenis_m"></div>
+      <div class="mb-4">
+          <label for="formFile" class="form-label text-danger">No indentitas wajib diisi!</label>
+          <input class="form-control" type="file" id="file_identitas" name="file_identitas">
+      </div>
+      <div class="mb-3">
+        <input  placeholder="NPWP " class="form-control" id="npwp" name="npwp" aria-describedby="NPWPHelp">
+      </div>
+      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="pekerjaan" >
+            <option disabled selected>Pekerjaan</option>
+            @foreach($kerja as $it_kerja)
+            <option value="{{$it_kerja->id}}">{{$it_kerja->jenis_kerja}}</option>
+            @endforeach
+      </select>
+      <div class="mb-3">
+        <input  placeholder="Alamat " class="form-control" id="alamat" name="alamat" aria-describedby="AlamatHelp">
+      </div>
+      <div class="mb-3">
+        <input  placeholder="Telp " class="form-control" id="telp" name="telp" aria-describedby="TelpHelp">
+      </div>
+      <div class="mb-3">
+        <input  placeholder="Keterangan " class="form-control" id="ket" name="ket" aria-describedby="KeteranganHelp">
+      </div>
+      <div class="mb-3">
+        <input  placeholder="Email" type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <input type="password" placeholder="Password" class="form-control" id="pass" name="pass">
+      </div>
+      <div class="text-end">
+          <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
+          <a href="{{url('/loginus')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
+      </div>
+      </form>
+    </div>
 
-				    <select class="form-select mb-4 rounded-pill" aria-label="Default select example">
-                        <option disabled selected>Jenis Pemohonan</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-				    <select class="form-select mb-4 rounded-pill" aria-label="Default select example">
-                        <option disabled selected>Jenis NIK</option>
-                        <option value="1">KTP</option>
-                      </select>
-                      
-         
-										  <div class="mb-3">
-											<input  placeholder="NIK " class="form-control" id="exampleInputNIK1" aria-describedby="NIKHelp">
-										  </div>
-                      <div class="mb-4">
-                        <label for="formFile" class="form-label text-danger">No indentitas wajib diisi!</label>
-                        <input class="form-control" type="file" id="formFile">
-                      </div>
-                      <div class="mb-3">
-						<input  placeholder="NPWP " class="form-control" id="exampleInputNPWP1" aria-describedby="NPWPHelp">
-					  </div>
-                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" >
-                        <option disabled selected>Pekerjaan</option>
-                        <option value="1">KTP</option>
-
-                      </select>
-                      <div class="mb-3">
-						<input  placeholder="Alamat " class="form-control" id="exampleInputAlamat1" aria-describedby="AlamatHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Telp " class="form-control" id="exampleInputTelp1" aria-describedby="TelpHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Keterangan " class="form-control" id="exampleInputKeterangan1" aria-describedby="KeteranganHelp">
-					  </div>
-                      <div class="mb-3">
-						<input  placeholder="Email " class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-					  </div>
-					  <div class="mb-3">
-				
-						<input type="password" placeholder="Password" class="form-control" id="exampleInputPassword1">
-					  </div>
-					  <div class="text-end">
-              <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
-              <a href="login.html"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>
-            </div>
-					  
-					
-				  </form>
-			</div>
-		
-	</div>
-	</div>
+  </div>
+  </div>
     
 
      <!-- footer -->
@@ -619,6 +662,33 @@
       });
     });
 
+    $(function() {
+    $.ajaxSetup({
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+  });
+    $(function() {
+      $('#pemohon_m').on('change', function() {
+        let id_pemohon = $('#pemohon_m').val();
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        // console.log(id_pemohon);
+        $.ajax({
+          type: 'POST',
+          url: "{{url('getidentitas_m')}}",
+          data: {id_pemohon: id_pemohon},
+          cahce: false,
+
+          success: function(msg) {
+            $('#identitas_m').html(msg);
+          },
+          error: function(data){
+            console.log('error', data);
+          },
+        });
+
+      });
+    });
+
   $(document).ready(function() {
     $("#pemohon").change(function() {
       $(this).find("option:selected").each(function() {
@@ -650,7 +720,122 @@
   });
 
   $(document).ready(function() {
+    $("#pemohon_m").change(function() {
+      $(this).find("option:selected").each(function() {
+        var optionNilai = $(this).attr("nilai");
+        $("#tambahIdentitas_m").hide();
+        $("#tambahIdentitas2_m").hide();
+        if(optionNilai == "Kelompok Orang") {
+          $("#tambahIdentitas_m").show();
+          $("#tambahIdentitas2_m").show();
+        } else {
+          $("#tambahIdentitas_m").hide();
+          $("#tambahIdentitas2_m").hide();
+        }
+      });
+    });
+  });
+
+  $('#tambahFormIdentitas_m').on('click', function() {
+    addidentitas2();
+  });
+  function addidentitas2() {
+    var identitas_add2 = '<div><select class="form-select mb-4 rounded-pill" name="jenis_identitas[]" aria-label="Default select example" id="identitas_m"><option disabled selected value="">Jenis NIK</option>@foreach($j_identitas as $it_identy)<option value="{{$it_identy->jenis_identitas}}">{{$it_identy->jenis_identitas}}</option>@endforeach</select><div class="mb-3"><input  placeholder="NIK " class="form-control" name="nomor_identitas[]" id="exampleInputNIK1" aria-describedby="NIKHelp"></div><a id="removIden_m" role="button"><i class="fas fa-minus-circle fa-2x"></i></div>';
+    $('#tampungJenis_m').append(identitas_add2); 
+  };
+
+  $('#tampungJenis_m').on('click', '#removIden_m', function() {
+    
+    $(this).parent().remove();
+  });
+
+  $(document).ready(function() {
     $("form[name='pengguna_baru_form']").validate({
+      rules: {
+        nama_lengkap: "required",
+        jenis_pemohon: "required",
+        "jenis_identitas[]": "required",
+        file_identitas: {
+          required: true,
+          extension: "pdf|jpg|jpeg",
+          filesize: 2
+        },
+        "nomor_identitas[]": {
+            required: true,
+            number:true,
+            minlength: 15
+        },
+        npwp: {
+          required: true,
+          number:true,
+          minlength: 15
+        },
+        pass: {
+            required: true,
+            minlength: 5
+        },
+        pekerjaan: "required",
+        alamat: {
+          required: true,
+          minlength: 10,
+        },
+        telp: {
+          required: true,
+          number: true
+        },
+        ket: "required",
+        email: {
+          required: true,
+          email: true,
+        },
+        },
+        messages: {
+          nama_lengkap: "<span style='color: red;'>Nama tidak boleh kosong</span>",
+          "nomor_identitas[]": {
+            required: "<span style='color: red;'>Nomor identitas tidak boleh kosong</span>",
+            number: "<span style='color: red;'>Nomor identitas harus angka</span>",
+            minlength: "<span style='color: red;'>Nomor identitas harus 16 karakter angka</span>",
+          },
+          pass: {
+            required: "<span style='color: red;'>Password tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Kata sandi harus lebih dari 5 karakter</span>"
+          },
+          jenis_pemohon: "<span style='color: red;'>Silakan pilih data pemohon</span>",
+          "jenis_identitas[]": "<span style='color: red;'>Silakan pilih data identitas</span>",
+          file_identitas: {
+            required: "<span style='color: red;'>File tidak boleh kosong</span>",
+            extension: "<span style='color: red;'>Format File harus pdf atau jpg</span>",
+            filesize: "<span style='color: red;'>Ukuran tidak boleh lebih dari 2MB</span>",
+          },
+          npwp: {
+            required: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+            number: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+            minlength: "<span style='color: red;'>NPWP Harus berupa 15-16 digit angka (jika tidak memiliki NPWP bisa memasukan NIK atau isi dengan angka 0 sebanyak 15x</span>",
+          },
+          pekerjaan: "<span style='color: red;'>Pekerjaan tidak boleh kosong</span>",
+          alamat: {
+            required: "<span style='color: red;'>Alamat tidak boleh kosong</span>",
+            minlength: "<span style='color: red;'>Alamat harus lebih dari 10 karekter</span>",
+          },
+          telp: {
+            required: "<span style='color: red;'>Telpom tidak boleh kosong</span>",
+            number: "<span style='color: red;'>telepon harus angka</span>",
+          },
+          ket: "<span style='color: red;'>keterangan harus diisi</span>",
+          email: {
+            required: "<span style='color: red;'>Email tidak boleh kosong</span>",
+            email: "<span style='color: red;'>Format Email harus sesuai</span>",
+          }
+
+        },
+        submitHandler: function(form) {
+          form.submit();
+        }
+    });
+  });
+
+  $(document).ready(function() {
+    $("form[name='pengguna_baru_form_m']").validate({
       rules: {
         nama_lengkap: "required",
         jenis_pemohon: "required",
