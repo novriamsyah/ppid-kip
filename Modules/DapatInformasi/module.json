@@ -1,0 +1,13 @@
+{
+    "name": "DapatInformasi",
+    "alias": "dapatinformasi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DapatInformasi\\Providers\\DapatInformasiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

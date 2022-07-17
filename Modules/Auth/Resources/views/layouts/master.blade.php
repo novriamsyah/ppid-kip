@@ -142,6 +142,9 @@
 							<li><a href="{{url('/kelola_pekerjaan')}}">Jenis Pekerjaan</a></li>
 							<li><a href="{{url('/kelola_register')}}">Data Register User</a></li>
 							<li><a href="{{url('/kelola_template')}}">Data Template</a></li>
+							<li><a href="{{url('/kelola_cdi')}}">Cara Dapat Informasi</a></li>
+							<li><a href="{{url('/kelola_cpi')}}">Cara Peroleh Informasi</a></li>
+							<li><a href="{{url('/kelola_tujuan_ppid')}}">Tujuan PPID</a></li>
                         </ul>
                     </li>
 					@endif

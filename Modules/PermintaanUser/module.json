@@ -1,0 +1,13 @@
+{
+    "name": "PermintaanUser",
+    "alias": "permintaanuser",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PermintaanUser\\Providers\\PermintaanUserServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

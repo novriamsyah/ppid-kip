@@ -6,5 +6,9 @@
     "Register": true,
     "Login": true,
     "Template": true,
-    "Loginus": true
+    "Loginus": true,
+    "DapatInformasi": true,
+    "OlehInformasi": true,
+    "PPIDtujuan": true,
+    "PermintaanUser": true
 }

@@ -101,9 +101,13 @@ class LoginusController extends Controller
         ->first();
 
         $kerja = KelompokPekerjaan::all();
-        
+        if(!session()->has('id')){
+            return redirect()->route('loginus');
+        }else{
+            return view('loginus::profil_user', ['d_user'=>$cek_db, 'd_user2'=>$cek_db2, 'd_user3'=>$cek_db3, 'kerja'=>$kerja, 'cek_id'=>$cek_db_id]);
+        }
         // dd($cek_db3);
-        return view('loginus::profil_user', ['d_user'=>$cek_db, 'd_user2'=>$cek_db2, 'd_user3'=>$cek_db3, 'kerja'=>$kerja, 'cek_id'=>$cek_db_id]);
+        
     }
 
     public function profilUserEdit(Request $request) {

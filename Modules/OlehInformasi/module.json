@@ -1,0 +1,13 @@
+{
+    "name": "OlehInformasi",
+    "alias": "olehinformasi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\OlehInformasi\\Providers\\OlehInformasiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

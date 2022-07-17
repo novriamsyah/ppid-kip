@@ -1,0 +1,13 @@
+{
+    "name": "PPIDtujuan",
+    "alias": "ppidtujuan",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PPIDtujuan\\Providers\\PPIDtujuanServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

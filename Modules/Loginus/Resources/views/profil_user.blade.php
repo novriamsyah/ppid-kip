@@ -101,7 +101,7 @@
 
             <div class="collapse navbar-collapse" style="flex-grow: unset">
               <!-- menus -->
-			  @php
+			         @php
                 $ambil_nama = Session::get('nama');
               @endphp
               <ul
@@ -206,6 +206,9 @@
                     <a class="nav-link" href="permintaan.html">Permintaan</a>
                   </li>
 				  @if (session()->has('id'))
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('user.minta')}}">Permintaan</a>
+          </li>
 				  <li class="nav-item dropdown">
 					<a
 					  class="nav-link dropdown-toggle"
