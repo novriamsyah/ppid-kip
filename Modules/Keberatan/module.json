@@ -1,0 +1,13 @@
+{
+    "name": "Keberatan",
+    "alias": "keberatan",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Keberatan\\Providers\\KeberatanServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

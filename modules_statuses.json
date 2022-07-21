@@ -10,5 +10,6 @@
     "DapatInformasi": true,
     "OlehInformasi": true,
     "PPIDtujuan": true,
-    "PermintaanUser": true
+    "PermintaanUser": true,
+    "Keberatan": true
 }

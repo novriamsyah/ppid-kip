@@ -61,35 +61,22 @@
                 $ambil_id = Session::get('id');
               @endphp
         <div class="row d-flex justify-content-center mb-4 mt-4">
-            <p style="font-size: 1.5rem; font-weight:bold;" class="text-center">Tambah Permintaan</p>
-				<form action="{{url('/simpan_permintaan')}}" method="POST" enctype="multipart/form-data" name="permintaan_baru_form">
+            <p style="font-size: 1.5rem; font-weight:bold;" class="text-center">Tambah Keberatan</p>
+				<form action="{{url('/simpan_keberatan')}}" method="POST" enctype="multipart/form-data" name="permintaan_baru_form">
           @csrf
           <input type="hidden" name="id_user_minta" value="{{$ambil_id}}">
-					            <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="mendapatkan">
-                        <option disabled selected>Cara mendapatkan informasi</option>
-                        @foreach ($data_cdi as $cdi)
-                        <option value="{{$cdi->id}}">{{$cdi->cara_dapat_informasi}}</option>
-                        @endforeach
-                      </select>
-                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="memperoleh">
-                        <option disabled selected>Cara memperoleh informasi</option>
-                        @foreach ($data_cpi as $cpi)
-                        <option value="{{$cpi->id}}">{{$cpi->cara_memperoleh_informasi}}</option>
+                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="isi" id="permintaan_req">
+                        <option disabled selected>Permintaan</option>
+                        @foreach ($ambil_data as $ambil_data2)
+                        <option value="{{$ambil_data2->id}}">{{$ambil_data2->isi}}</option>
                         @endforeach
                       </select>
                       <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="ppid_tujuan">
-                        <option disabled selected>PPID Tujuan permintaan informasi</option>
+                        <option disabled selected>PPID Tujuan keberatan informasi</option>
                         @foreach ($tujuan_ppid as $t_ppid)
                         <option value="{{$t_ppid->id}}">{{$t_ppid->tujuan_ppid}}</option>
                         @endforeach
                       </select>
-                      <div class="mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Isi Permintaan Informasi" name="isi"></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" placeholder="Tujuan Pengunaan Informasi" name="tujuan"></textarea>
-                      </div>
-
                         <div class=" mb-3 form-check">
                             <input type="checkbox" class="form-check-input checkbox-dikuasakan" id="exampleCheck1" name="dikuasakan">
                             <label class="form-check-label" for="exampleCheck1">Dikuasakan</label>
@@ -118,6 +105,15 @@
                           <label for="formFile1" class="new-button1">File Identitas Kuasa</label>
                           <input class="form-control" type="file" id="formFile1" name="identitas_kuasa">
                       </div>
+                      </div>
+                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="ppid_tujuan">
+                        <option disabled selected>Alasan Keberatan</option>
+                        @foreach ($alasan_keberatan as $alasan)
+                        <option value="{{$alasan->id}}">{{$alasan->alasan_keberatan}}</option>
+                        @endforeach
+                      </select>
+                      <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea10" rows="3" placeholder="Alasan Keberatan Detail" name="tujuan"></textarea>
                       </div>
                       <div class="mb-3" style="position: relative">
                         <label for="formFile2" class="new-button2">File Identitas</label>
@@ -194,9 +190,38 @@
 
 @endsection
 @section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
 
 <script>
+  $(function() {
+    $.ajaxSetup({
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+  });
+    $(function() {
+      $('#permintaan_req').on('change', function() {
+        let id_permintaan = $('#permintaan_req').val();
+        // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        console.log(id_permintaan);
+        $.ajax({
+          type: 'POST',
+          url: "{{url('getpermintaan')}}",
+          data: {id_permintaan: id_permintaan},
+          cahce: false,
+
+          success: function(msg) {
+            // $('#identitas').html(msg);
+            console.log(msg);
+          },
+          error: function(data){
+            console.log('error', data);
+          },
+        });
+
+      });
+    });
+
 $(".dikuasakan").hide();
 $(".checkbox-dikuasakan").click(function() {
     if($(this).is(":checked")) {

@@ -145,6 +145,7 @@
 							<li><a href="{{url('/kelola_cdi')}}">Cara Dapat Informasi</a></li>
 							<li><a href="{{url('/kelola_cpi')}}">Cara Peroleh Informasi</a></li>
 							<li><a href="{{url('/kelola_tujuan_ppid')}}">Tujuan PPID</a></li>
+							<li><a href="{{url('/kelola_keberatan')}}">Alasan Keberatan</a></li>
                         </ul>
                     </li>
 					@endif

@@ -9,7 +9,7 @@
           <div class="card-body">
             <div class="row">
                 <div class="col-md text-center">
-                  <h1 style="font-size: 5rem; font-weight:bold">12</h1> 
+                  <h1 style="font-size: 5rem; font-weight:bold">4</h1> 
                 </div>
                 <div class="col-md text-center">
                   <span class="material-icons" style="font-size: 4rem;">
@@ -29,7 +29,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md text-center">
-                <h1 style="font-size: 5rem; font-weight:bold">15</h1> 
+                <h1 style="font-size: 5rem; font-weight:bold">4</h1> 
               </div>
               <div class="col-md text-center">
                 <span class="material-icons" style="font-size: 4rem;">
@@ -102,13 +102,17 @@
     </div>
   </div>
 
-  <div class="container d-flex justify-content-center flex-column w-75">
+  <div class="container d-flex justify-content-center flex-column w-75" style="margin-top: 50px">
+    <div><h2 style="text-align: center">List Permintaan</h2></div>
     <div class="text-start mb-3">
       <a href="{{route('tambah.permintaan')}}">
           <button type="button" class="btn rounded-pill" style="background-color:#1474ae ;">Tambah Permintaan</button>
       </a>
    </div>
     <div class="overflow-auto row d-flex">
+      @php
+             \Carbon\Carbon::setLocale('id'); 
+          @endphp
       <table class="table" id="myTable">
         <thead>
           <tr>
@@ -124,14 +128,38 @@
           </tr>
         </thead>
         <tbody>
+          
           <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
+            @foreach ($ambil_data as $user_minta)
+            <td>{{\Carbon\Carbon::parse($user_minta->created_at)->translatedFormat('d F Y')}}</td>
+           
+            <td>{{$user_minta->isi}}</td>
+            <td>{{$user_minta->noreg}}</td>
+            @if (!$user_minta->tgl_kirim)
             <td>-</td>
+            @else
+            <td>{{\Carbon\Carbon::parse($user_minta->tgl_kirim)->translatedFormat('d F Y')}}</td>
+            @endif
+            <td style="word-break: break-word">{{$user_minta->pendukung}}</td>
+            @if (!$user_minta->jatuh_tempo)
             <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
+            @else
+            <td>{{\Carbon\Carbon::parse($user_minta->jatuh_tempo)->translatedFormat('d F Y')}}</td>
+            @endif
+            
+              @if ($user_minta->status == 0)
+              <td>Diajukan</td>
+              @elseif ($user_minta->status == 1)
+              <td>Diproses</td>
+              @elseif ($user_minta->status == 2)
+              <td>Ditolak</td>
+              @elseif ($user_minta->status == 3)
+              <td>Selesai</td>
+              @elseif ($user_minta->status == 4)
+              <td>Keberatan</td>
+              @else
+              <td>batal</td>  
+              @endif
             <td>
               <button
                 class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
@@ -155,347 +183,80 @@
               </button>
             </td>
           </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container d-flex justify-content-center flex-column w-75" style="margin-top: 100px">
+    <div><h2 style="text-align: center">List Keberatan</h2></div>
+    <div class="text-start mb-3">
+      <a href="{{route('tambah.keberatan')}}">
+          <button type="button" class="btn rounded-pill" style="background-color:#1474ae ;">Tambah keberatan</button>
+      </a>
+   </div>
+    <div class="overflow-auto row d-flex">
+      @php
+             \Carbon\Carbon::setLocale('id'); 
+          @endphp
+      <table class="table" id="myTable">
+        <thead>
           <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
+            <th scope="col">Tanggal Pengajuan</th>
+            <th scope="col">Nomor Pendaftaran</th>
+            <th scope="col">Permintaan Informasi</th>
+            <th scope="col">No. register Keberatan</th>
+            <th scope="col">Tanggal Registrasi Keberatan</th>
+            <th scope="col">Alasan Keberatan</th>
+            <th scope="col">Alasan Keberatan Detail</th>
+            <th scope="col">Tanggal Jatuh Tempo</th>
+            <th scope="col">Status</th>
+            <th scope="col">Dokumen Pendukung</th>
+            <th scope="col">Tanggal Keberatan</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            @foreach ($ambil_data as $user_minta)
+            <td>{{\Carbon\Carbon::parse($user_minta->created_at)->translatedFormat('d F Y')}}</td>
+           
+            <td>{{$user_minta->isi}}</td>
+            <td>{{$user_minta->noreg}}</td>
+            @if (!$user_minta->tgl_kirim)
             <td>-</td>
+            @else
+            <td>{{\Carbon\Carbon::parse($user_minta->tgl_kirim)->translatedFormat('d F Y')}}</td>
+            @endif
+            <td style="word-break: break-word">{{$user_minta->pendukung}}</td>
+            @if (!$user_minta->jatuh_tempo)
             <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
+            @else
+            <td>{{\Carbon\Carbon::parse($user_minta->jatuh_tempo)->translatedFormat('d F Y')}}</td>
+            @endif
+            
+              @if ($user_minta->status == 0)
+              <td>Diajukan</td>
+              @elseif ($user_minta->status == 1)
+              <td>Diproses</td>
+              @elseif ($user_minta->status == 2)
+              <td>Ditolak</td>
+              @elseif ($user_minta->status == 3)
+              <td>Selesai</td>
+              @elseif ($user_minta->status == 4)
+              <td>Keberatan</td>
+              @else
+              <td>batal</td>  
+              @endif
             <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
+              
             </td>
             <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
+             
             </td>
           </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>5 Juni 2022 21:31</td>
-            <td>Mohon dapat memberikan laporan keuangan periode 2021</td>
-            <td>REG-59/PPID/KK</td>
-            <td>-</td>
-            <td>-</td>
-            <td>28 Juni 2022 15:00</td>
-            <td>Verifikasi Identitas</td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#pemberitahuan"
-              >
-                <i class="material-icons pmd-sm">visibility</i>
-              </button>
-            </td>
-            <td>
-              <button
-                class="btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect mb-4"
-                type="button"
-                style="background-color: #1474ae"
-                data-bs-toggle="modal"
-                data-bs-target="#keberatan"
-              >
-                <i class="material-icons pmd-sm">info</i>
-              </button>
-            </td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
