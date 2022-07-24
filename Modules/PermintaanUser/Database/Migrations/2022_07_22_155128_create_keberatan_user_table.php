@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKeberatanTable extends Migration
+class CreateKeberatanUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateKeberatanTable extends Migration
      */
     public function up()
     {
-        Schema::create('keberatan', function (Blueprint $table) {
+        Schema::create('keberatan_user', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_permintaan')->unsigned();
+            $table->integer('id_permintaan');
             $table->string('noreg_keberatan');
             $table->string('alasan');
             $table->string('detail_alasan');
             $table->date('jatuh_tempo')->nullable();
             $table->integer('status')->default(0);
             $table->string('pendukung');
+            $table->string('f_identitas');
             $table->string('tanggapan')->nullable();
             $table->timestamps();
-            $table->foreign('id_permintaan')->references('id')->on('permintaan_users')->onDelete('cascade');
 
         });
     }
@@ -36,6 +36,6 @@ class CreateKeberatanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keberatan');
+        Schema::dropIfExists('keberatan_user');
     }
 }

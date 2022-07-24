@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Modules\Register\Entities\Register;
 use Modules\Keberatan\Entities\AlasanKeberatan;
+use Modules\PermintaanUser\Entities\Keberatan;
 
 class PermintaanUserController extends Controller
 {
@@ -29,14 +30,22 @@ class PermintaanUserController extends Controller
         ->where('id_user_minta', $cek_id_user)
         ->get();
 
-        // dd($ambil_data);
+        $ambil_data2 = DB::table('keberatan_user')
+        ->where('id_permintaan', $cek_id_user)
+        ->get();
+
+        $ambil_data3 = DB::table('keberatan_user')
+        ->select('keberatan_user.*',  'permintaan_users.isi')
+        ->join('permintaan_users', 'permintaan_users.id','=','keberatan_user.id_permintaan')->get();
+
+        // dd($ambil_data3);
 
         if(!session()->has('id')){
             return redirect()->route('loginus');
         }else{
         
-        return view('permintaanuser::halaman_permintaan_user', ['ambil_data'=>$ambil_data]);
-        // dd($ambil_data);
+        return view('permintaanuser::halaman_permintaan_user', ['ambil_data'=>$ambil_data, 'kebrtan'=>$ambil_data3]);
+        // dd($ambil_data3);
         }
         
     }
@@ -180,6 +189,104 @@ class PermintaanUserController extends Controller
         return response()->json($ambil_permintaan);
 
         
+    }
+
+    public function simpanKeberatan(Request $req) {
+        $cek_maks = Keberatan::select('keberatan.noreg_keberatan')->count();
+        $tahun = carbon::now();
+        $thn = $tahun->isoFormat('/YYYY');
+
+        if($cek_maks == null) {
+            $max_code = "REG-1/PPID.KK".$thn;
+        } else {
+            $con_code = $cek_maks;
+            $con_code++;
+                $max_code = "REG-".$con_code."/PPID.KK".$thn;
+        }
+
+        if($req->dikuasakan == "0" || $req->dikuasakan == null){
+            $dikuasa = 0;
+        } else {
+            $dikuasa = 1;
+        }
+
+        $file_d1 = $req->identitas_kuasa;
+        $file_d2 = $req->doc_kuasa;
+
+        if($dikuasa == "1") {
+
+        
+        $keberatan_us = new Keberatan;
+        $keberatan_us->id_permintaan = $req->id_permintaan;
+        $keberatan_us->alasan = $req->alasan;
+        $keberatan_us->detail_alasan = $req->detail_alasan;
+        $keberatan_us->noreg_keberatan = $max_code;
+
+        $file_dk1 = $req->file('f_identitas');
+        $keberatan_us->f_identitas = $file_dk1->getClientOriginalName();
+        $file_dk1->move(public_path('file/'), $file_dk1->getClientOriginalName());
+
+        $file_dk2 = $req->file('pendukung');
+        $keberatan_us->pendukung = $file_dk2->getClientOriginalName();
+        $file_dk2->move(public_path('file/'), $file_dk2->getClientOriginalName());
+
+        $simpan = $keberatan_us->save();
+
+        $update = Permintaan::where('id', $req->id_permintaan)->update([
+            'dikuasakan' => $dikuasa,
+            'nama_kuasa' => $req->nama_kuasa,
+            'nik_kuasa' => $req->nik_kuasa,
+            'kontak_kuasa' => $req->kontak_kuasa,
+            'alamat_kuasa' => $req->alamat_kuasa      
+        ]);
+        if($file_d2 != '') {
+            $file_dk = $req->file('doc_kuasa');
+            $dok_kuasa = $file_dk->getClientOriginalName();
+            $file_dk->move(public_path('file/'), $dok_kuasa);
+            Permintaan::where('id', $req->id_permintaan)->update([
+                'doc_kuasa' => $dok_kuasa
+            ]);
+        } 
+        if($file_d1 != '') {
+            $file_ik = $req->file('identitas_kuasa');
+            $identitas_kuasas = $file_ik->getClientOriginalName();
+            $file_ik->move(public_path('file/'), $identitas_kuasas);
+            Permintaan::where('id', $req->id_permintaan)->update([
+                'identitas_kuasa' => $identitas_kuasas 
+            ]);
+        }
+
+
+
+        if($simpan) {
+            // Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
+            return redirect()->route('user.minta')->with('success', 'kamu berhasil melakukan permohonan keberatan');
+        } else {
+            return redirect()->route('tambah.permintaan')->with('fail', 'kamu gagal melakukan permohonan keberatan');
+        }
+        } else {
+            $keberatan_us = new Keberatan;
+            $keberatan_us->id_permintaan = $req->id_permintaan;
+            $keberatan_us->alasan = $req->alasan;
+            $keberatan_us->detail_alasan = $req->detail_alasan;
+            $keberatan_us->noreg_keberatan = $max_code;
+    
+            $file_dk1 = $req->file('f_identitas');
+            $keberatan_us->f_identitas = $file_dk1->getClientOriginalName();
+            $file_dk1->move(public_path('file/'), $file_dk1->getClientOriginalName());
+
+            $file_dk2 = $req->file('pendukung');
+            $keberatan_us->pendukung = $file_dk2->getClientOriginalName();
+            $file_dk2->move(public_path('file/'), $file_dk2->getClientOriginalName());
+    
+            $simpan = $keberatan_us->save();
+        if($simpan) {
+            // Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
+            return redirect()->route('user.minta')->with('success', 'kamu berhasil melakukan permintaan keberatan');
+        } else {
+            return redirect()->route('tambah.permintaan')->with('fail', 'kamu gagal melakukan permintaan keberatan');
+        }
+        }
     }
 
    

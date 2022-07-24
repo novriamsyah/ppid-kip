@@ -64,8 +64,8 @@
             <p style="font-size: 1.5rem; font-weight:bold;" class="text-center">Tambah Keberatan</p>
 				<form action="{{url('/simpan_keberatan')}}" method="POST" enctype="multipart/form-data" name="permintaan_baru_form">
           @csrf
-          <input type="hidden" name="id_user_minta" value="{{$ambil_id}}">
-                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="isi" id="permintaan_req">
+          {{-- <input type="hidden" name="id_permintaan" value="{{$ambil_id}}"> --}}
+                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="id_permintaan" id="permintaan_req">
                         <option disabled selected>Permintaan</option>
                         @foreach ($ambil_data as $ambil_data2)
                         <option value="{{$ambil_data2->id}}">{{$ambil_data2->isi}}</option>
@@ -78,7 +78,7 @@
                         @endforeach
                       </select>
                         <div class=" mb-3 form-check">
-                            <input type="checkbox" class="form-check-input checkbox-dikuasakan" id="exampleCheck1" name="dikuasakan">
+                             <input type="checkbox" class="form-check-input checkbox-dikuasakan" id="exampleCheck1" name="dikuasakan">
                             <label class="form-check-label" for="exampleCheck1">Dikuasakan</label>
                         </div>
                       <div class="dikuasakan" style="display: none;">
@@ -86,40 +86,44 @@
                           <h3>Informasi Kuasa</h3>
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="nama_kuasa" id="exampleFormControlTextarea1" rows="3" placeholder="Nama Kuasa"/> 
+                          <input class="form-control" name="nama_kuasa" id="namaKuasa" rows="3" placeholder="Nama Kuasa"/> 
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="nik_kuasa" id="exampleFormControlTextarea1" rows="3" placeholder="NIK Kuasa"/> 
+                          <input class="form-control" name="nik_kuasa" id="niKuasa" rows="3" placeholder="NIK Kuasa"/> 
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="kontak_kuasa" id="exampleFormControlTextarea1" rows="3" placeholder="Telepon/Fax/Email Kuasa"/> 
+                          <input class="form-control" name="kontak_kuasa" id="kontaKuasa" rows="3" placeholder="Telepon/Fax/Email Kuasa"/> 
                         </div>
                         <div class="mb-3">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Alamat" name="alamat_kuasa"></textarea>
+                          <textarea class="form-control" id="alamatKuasa" rows="3" placeholder="Alamat" name="alamat_kuasa"></textarea>
                         </div>
                         <div class="mb-3" style="position: relative">
+                          <p style="word-break: break-word"><span id="docKuasa"></span> </p>
                           <label for="formFile" class="new-button">Surat Kuasa</label>
-                          <input class="form-control" type="file" id="formFile" name="doc_kuasa">
+                          <input class="form-control skuasa" type="file" id="formFile" name="doc_kuasa">
                       </div>
                         <div class="mb-3" style="position: relative">
+                          <p style="word-break: break-word"><span id="identitasKuasa"></span> </p>
                           <label for="formFile1" class="new-button1">File Identitas Kuasa</label>
                           <input class="form-control" type="file" id="formFile1" name="identitas_kuasa">
                       </div>
                       </div>
-                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="ppid_tujuan">
+                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="alasan">
                         <option disabled selected>Alasan Keberatan</option>
                         @foreach ($alasan_keberatan as $alasan)
                         <option value="{{$alasan->id}}">{{$alasan->alasan_keberatan}}</option>
                         @endforeach
                       </select>
                       <div class="mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea10" rows="3" placeholder="Alasan Keberatan Detail" name="tujuan"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea10" rows="3" placeholder="Alasan Keberatan Detail" name="detail_alasan"></textarea>
                       </div>
                       <div class="mb-3" style="position: relative">
+                        <p style="word-break: break-word"><span id="dokumen_berat"></span> </p>
                         <label for="formFile2" class="new-button2">File Identitas</label>
-                        <input class="form-control" type="file" id="formFile2" name="dokumen">
+                        <input class="form-control" type="file" id="formFile2" name="f_identitas">
                       </div>
                       <div class="mb-3" style="position: relative">
+                        <p style="word-break: break-word"><span id="pendukung_berat"></span> </p>
                           <label for="formFile3" class="new-button3">Dokumen Pendukung</label>
                           <input class="form-control" type="file" id="formFile3" name="pendukung">
                       </div>
@@ -190,7 +194,7 @@
 
 @endsection
 @section('script')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
 <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
 
 <script>
@@ -203,7 +207,7 @@
       $('#permintaan_req').on('change', function() {
         let id_permintaan = $('#permintaan_req').val();
         // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        console.log(id_permintaan);
+        // console.log(id_permintaan);
         $.ajax({
           type: 'POST',
           url: "{{url('getpermintaan')}}",
@@ -212,7 +216,13 @@
 
           success: function(msg) {
             // $('#identitas').html(msg);
-            console.log(msg);
+            // console.log(msg[0]);
+            $('#namaKuasa').val(msg[0].nama_kuasa );
+            $('#niKuasa').val(msg[0].nik_kuasa );
+            $('#kontaKuasa').val(msg[0].kontak_kuasa );
+            $('#alamatKuasa').val(msg[0].alamat_kuasa );
+            $('#docKuasa').html(msg[0].doc_kuasa );
+            $('#identitasKuasa').html(msg[0].identitas_kuasa );
           },
           error: function(data){
             console.log('error', data);
@@ -230,6 +240,28 @@ $(".checkbox-dikuasakan").click(function() {
         $(".dikuasakan").hide(200);
     }
 });
+
+$(function(){
+  $('input[name=doc_kuasa]').change(function(){
+    $('#docKuasa').html($(this).val() );
+});
+});
+$(function(){
+  $('input[name=identitas_kuasa]').change(function(){
+    $('#identitasKuasa').html($(this).val()  );
+});
+});
+$(function(){
+  $('input[name=f_identitas]').change(function(){
+    $('#dokumen_berat').html($(this).val()  );
+});
+});
+$(function(){
+  $('input[name=pendukung]').change(function(){
+    $('#pendukung_berat').html($(this).val()  );
+});
+});
+
 
 $(document).on('click', 'input[name=dikuasakan]', function(){
   if(this.checked == false){

@@ -219,24 +219,30 @@
         <tbody>
           
           <tr>
-            @foreach ($ambil_data as $user_minta)
-            <td>{{\Carbon\Carbon::parse($user_minta->created_at)->translatedFormat('d F Y')}}</td>
-           
-            <td>{{$user_minta->isi}}</td>
-            <td>{{$user_minta->noreg}}</td>
-            @if (!$user_minta->tgl_kirim)
+            @foreach ($kebrtan as $kbrtan)
+            <td>{{\Carbon\Carbon::parse($kbrtan->created_at)->translatedFormat('d F Y')}}</td>
+            <td>-</td>
+            <td>
+              @php
+              $isi = \Modules\PermintaanUser\Entities\Permintaan::select('permintaan_users.*')->where('id', $kbrtan->id_permintaan)->first();
+              @endphp
+              {{$isi->isi}}
+            </td>
+            <td>{{$kbrtan->noreg_keberatan}}</td>
+            <td>-</td>
+            <td> 
+              @php
+              $alasan = \Modules\Keberatan\Entities\AlasanKeberatan::select('alasan_keberatan.*')->where('id', $kbrtan->alasan)->first();
+              @endphp
+              {{$alasan->alasan_keberatan}}
+          </td>
+            <td>{{$kbrtan->detail_alasan}}</td>
+            @if (!$kbrtan->jatuh_tempo)
             <td>-</td>
             @else
-            <td>{{\Carbon\Carbon::parse($user_minta->tgl_kirim)->translatedFormat('d F Y')}}</td>
+            <td>{{\Carbon\Carbon::parse($kbrtan->jatuh_tempo)->translatedFormat('d F Y')}}</td>
             @endif
-            <td style="word-break: break-word">{{$user_minta->pendukung}}</td>
-            @if (!$user_minta->jatuh_tempo)
-            <td>-</td>
-            @else
-            <td>{{\Carbon\Carbon::parse($user_minta->jatuh_tempo)->translatedFormat('d F Y')}}</td>
-            @endif
-            
-              @if ($user_minta->status == 0)
+            @if ($user_minta->status == 0)
               <td>Diajukan</td>
               @elseif ($user_minta->status == 1)
               <td>Diproses</td>
@@ -248,13 +254,9 @@
               <td>Keberatan</td>
               @else
               <td>batal</td>  
-              @endif
-            <td>
-              
-            </td>
-            <td>
-             
-            </td>
+            @endif
+            <td style="word-break: break-word">{{$kbrtan->pendukung}}</td>
+
           </tr>
           @endforeach
         </tbody>

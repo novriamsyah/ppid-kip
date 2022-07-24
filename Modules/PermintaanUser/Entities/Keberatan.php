@@ -9,7 +9,7 @@ class Keberatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'keberatan';
+    protected $table = 'keberatan_user';
     protected $fillable = [
        'id_permintaan',
            'noreg_keberatan',
@@ -18,6 +18,7 @@ class Keberatan extends Model
           'jatuh_tempo',
            'status',
            'pendukung',
+           'f_identitas',
            'tanggapan',
     ];
     
