@@ -132,7 +132,7 @@ class LoginusController extends Controller
                 session()->pull('id');
                 session()->pull('email');
                 session()->pull('nama');
-                return redirect()->route('hal.utama');
+                return redirect()->route('hal.utama')->with('keluar', 'Bye!! Kamu berhasil logout');
             }
     }
 

@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth2:super_admin,admin_ver']], function(){
     Route::post('/simpan_template', 'TemplateController@simpanTemplate');
     Route::get('/lihat_isi/{id}', 'TemplateController@lihatTemplate');
     Route::get('/edit_template/{id}', 'TemplateController@editTemplate');
+    Route::get('/edit_template_verif/{id}', 'TemplateController@editTemplateverif');
+    Route::get('/edit_template_forgot/{id}', 'TemplateController@editTemplateforgot');
     Route::post('/ubah_template/{id}', 'TemplateController@ubahTemplate');
     Route::post('/hapus_template/{id}', 'TemplateController@hapusTemplate');
 

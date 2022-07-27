@@ -72,6 +72,12 @@ class RegisterController extends Controller
      */
     public function simpanRegister(Request $req)
     {
+        $cek_email = Register::where('email', '=', $req->email)->count();
+        if($cek_email == 1) {
+            Session::flash('tidak_tersimpan', 'Maaf email yang anda masukan telah digunakan');
+            return back();
+        }else {
+
         $regis_user = new Register;
         $regis_user->nama_lengkap = $req->nama_lengkap;
         $regis_user->jenis_pemohon = $req->jenis_pemohon;
@@ -120,11 +126,12 @@ class RegisterController extends Controller
         });
 
         if($simpan) {
-            Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
-            return redirect()->route('loginus')->with('success', 'kamu berhasil daftar, silahkan verifikasi lewat EMAIL');
+            // Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
+            return redirect()->route('loginus')->with('berhasil', 'kamu berhasil daftar, silahkan verifikasi lewat email');
         } else {
-            return redirect()->route('loginus')->with('fail', 'kamu gagal daftar');
+            return redirect()->route('regis.user')->with('gagall', 'kamu gagal mendaftar');
         }
+    }
 
 
         // dd(json_encode($req->jenis_identitas));

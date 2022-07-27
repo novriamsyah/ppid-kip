@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+<link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
 <style>
 [aria-expanded="false"] > .expanded, [aria-expanded="true"] > .collapsed {
@@ -21,7 +22,7 @@
 @section('content')
 <div class="row page-titles">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Template</a></li>
+        <li class="breadcrumb-item active"><a href="{{url('/kelola_template')}}">Data Template</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Data Template Email</a></li>
     </ol>
 </div>
@@ -31,6 +32,7 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Edit Data Template Email</h4>
+                
             </div>
             <div class="card-body">
                 <div class="form-validation">
@@ -39,6 +41,9 @@
                         @csrf
                         <div class="row">
                             <div class="col-xl-12">
+                                <div class="mb-3 row">
+                                    <input type="hidden" value="verifikasi" name="kategori">
+                                </div>
                                 <div class="mb-3 row">
                                     <label class="col-form-label" for="val-isi">isi
                                         <span class="text-danger">*</span>
@@ -51,8 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                <div class="col-lg-8 ms-auto">
+                                <div class="col-lg-12 ms-auto">
                                     <a href="#"><button type="submit" class="btn btn-primary">Ubah data</button></a>
+                                    <a href="{{url('/kelola_template')}}" class="btn btn-dark" role="button">Kembali</a>
                                 </div>
                                 </div>
                             </div>
@@ -70,7 +76,7 @@
                 <div class="accordion accordion-no-gutter accordion-bordered" id="accordion-four">
                     <div class="accordion-item">
                       <div class="accordion-header  rounded-lg" id="accord-4One" data-bs-toggle="collapse" data-bs-target="#collapse4One" aria-controls="collapse4One"   aria-expanded="true"  role="button">
-                        <span class="accordion-header-text" style="font-weight: bold; font-size:16px">Live Preview Template Verifikasi email</span>
+                        <span class="accordion-header-text" style="font-weight: bold; font-size:16px">Preview Template Verifikasi email</span>
                        <span class="accordion-header-indicator" style="font_weight:bold; font-size:20px"></span>
                       </div>
                       <div id="collapse4One" class="collapse accordion__body show" aria-labelledby="accord-4One" data-bs-parent="#accordion-four">
@@ -107,7 +113,8 @@
                                             <tr>
                                                 <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                                                     <p style="margin: 0;">Halo, Nama Pendaftar</p><br>
-                                                   <p>{{strip_tags($template->isi)}}</p> 
+                                                   {{-- <p style="background-color: #00A15D; color:#ffffff">{{strip_tags($template->isi)}}</p>  --}}
+                                                   <p>{!! $template->isi !!}</p> 
                                                 </td>
                                             </tr>
                                             <tr>
@@ -166,11 +173,26 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
+<script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
 <script src="{{asset('assets/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js')}}"></script>
 
 <script type="text/javascript">
-
+    @if ($message = Session::get('tersimpan'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
+    @if ($message = Session::get('terubah'))
+        swal(
+            "berhasil",
+            "{{ $message }}",
+            "success"
+        )
+    @endif
     @if ($message = Session::get('tidak_tersimpan'))
     toastr.warning("{{ $message }}","Peringatan !", {
         timeOut:5e3,

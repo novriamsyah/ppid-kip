@@ -100,7 +100,7 @@
         <div class="spacer" data-height="20"></div>
       </div>
     </div>
-  </div>
+</div>
 
   <div class="container d-flex justify-content-center flex-column w-75" style="margin-top: 50px">
     <div><h2 style="text-align: center">List Permintaan</h2></div>
@@ -200,7 +200,7 @@
       @php
              \Carbon\Carbon::setLocale('id'); 
           @endphp
-      <table class="table" id="myTable">
+      <table class="table" id="myTable2">
         <thead>
           <tr>
             <th scope="col">Tanggal Pengajuan</th>

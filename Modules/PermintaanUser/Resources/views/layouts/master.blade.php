@@ -207,11 +207,6 @@
 						>
 					  </li>
 					  <li>
-						<a class="dropdown-item" href="#"
-						  >Ubah Password</a
-						>
-					  </li>
-					  <li>
 						<a class="dropdown-item" href="{{route('signout.user')}}"
 						  >Logout</a
 						>
@@ -436,6 +431,12 @@
     <script>
       $(document).ready(function () {
         $("#myTable").DataTable({
+          pageLength: 3,
+          lengthMenu: [3,10,15],
+        });
+      });
+      $(document).ready(function () {
+        $("#myTable2").DataTable({
           pageLength: 3,
           lengthMenu: [3,10,15],
         });

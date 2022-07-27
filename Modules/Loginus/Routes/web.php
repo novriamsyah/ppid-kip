@@ -17,7 +17,7 @@ Route::prefix('loginus')->group(function() {
 
 Route::post('/verifikasi_us', 'LoginusController@verifikasiLogin')->name('login.verifikasius');
 Route::get('/signout', 'LoginusController@signout')->name('signout.user');
-Route::get('/home', 'LoginusController@halaman_utama')->name('hal.utama');
+Route::get('/', 'LoginusController@halaman_utama')->name('hal.utama');
 Route::get('/profil_user', 'LoginusController@profilUser')->name('profil_us');
 Route::post('/edit_profil_user', 'LoginusController@profilUserEdit')->name('edit_profil_user');
 

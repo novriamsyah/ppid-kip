@@ -17,7 +17,9 @@ class TemplateController extends Controller
     public function halamanTemplate()
     {
         $template = Template::all();
-        return view('template::halaman_kelola_template', compact('template'));
+        $verif = Template::Where('kategori', '=','verifikasi')->orderBy('id', 'DESC')->first();
+        $forgot = Template::Where('kategori', '=','lupa_password')->orderBy('id', 'DESC')->first();
+        return view('template::halaman_kelola_template', compact('template', 'forgot', 'verif'));
     }
 
     /**
@@ -66,6 +68,18 @@ class TemplateController extends Controller
         $kategori = Template::find($id);
         return view('template::halaman_edit_template', compact('id', 'kategori'));
     }
+    public function editTemplateverif($id)
+    {
+        $kategori = Template::find($id);
+        // $kategori = Template::Where('id', '=',$id)->orderBy('id', 'DESC')->first();
+        return view('template::template_verif', compact('id', 'kategori'));
+    }
+    public function editTemplateforgot($id)
+    {
+        $kategori = Template::find($id);
+        // $kategori = Template::Where('id', '=',$id)->orderBy('id', 'DESC')->first();
+        return view('template::template_forgot', compact('id', 'kategori'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -84,7 +98,7 @@ class TemplateController extends Controller
             $kategori->save();
             
             Session::flash('terubah', 'Data template berhasil diubah');
-            return redirect('/kelola_template');
+            return back();
        
     }
 

@@ -66,8 +66,8 @@ class ForgotPasswordController extends Controller
                 // $message->from('ppid@komisiinformasi.go.id', 'PPID Komisi Informasi');
                 // $message->subject('Reset password');
             });
-    
-            return back()->with('message', 'Buka email untuk melakukan reset password');
+            
+            return back()->with('info_email', 'Buka email untuk melakukan reset password');
         }
         
     }

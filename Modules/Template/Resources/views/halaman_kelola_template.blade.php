@@ -62,6 +62,7 @@
                 @else
                 <div class="table-responsive">
                     <table class="table table-responsive-md">
+                        
                         <thead>
                             <tr>
                                 <th style="width:80px;"><strong>No.</strong></th>
@@ -72,26 +73,25 @@
                         </thead>
                         <tbody>
                             <?php $number = 1 ?>
-                            @foreach ($template as $it_temp)
                                 <tr>
                                     <td><strong>{{$number}}</strong></td>
-                                    <td>{{$it_temp->kategori}}</td>
-                                    <td><button type="button" class="btn btn-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$it_temp->id}}">Lihat detail</button></td>
+                                    <td>{{$verif->kategori}}</td>
+                                    <td><button type="button" class="btn btn-square btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$verif->id}}">Lihat teks</button></td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-dark light sharp" data-bs-toggle="dropdown">
-                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                            </button>
-                                             
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{url('/edit_template/'.$it_temp->id)}}">Edit</a>
-                                                <a class="dropdown-item delete-confirm" onclick="deleteConfirmation({{$it_temp->id}})" role="button">Delete</a>
-                                            </div> 
-                                        </div>
+                                    <a class="btn btn-square btn-primary" href="{{url('/edit_template_verif/'.$verif->id)}}" role="button">Perbarui Template</a>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td><strong>{{$number}}</strong></td>
+                                    <td>{{$forgot->kategori}}</td>
+                                    <td><button type="button" class="btn btn-square btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$forgot->id}}">Lihat teks</button></td>
+                                    <td>
+                                    <a class="btn btn-square btn-primary" href="{{url('/edit_template_forgot/'.$forgot->id)}}" role="button">Perbarui Template</a>
                                     </td>
                                 </tr>
                             <?php $number++ ?>
-                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>

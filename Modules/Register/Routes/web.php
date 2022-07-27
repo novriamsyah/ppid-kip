@@ -12,7 +12,7 @@
 */
 
 Route::prefix('register')->group(function() {
-    Route::get('/', 'RegisterController@index');
+    Route::get('/', 'RegisterController@index')->name('regis.user');
 });
 
 Route::post('/simpan_register', 'RegisterController@simpanRegister');
