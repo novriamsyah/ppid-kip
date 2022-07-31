@@ -117,6 +117,26 @@
         tapToDismiss:!1
     });
     @endif
+    @if ($message = Session::get('sukses_ubah'))
+    toastr.success("{{ $message }}","Selamat !!", {
+        timeOut:5e3,
+        closeButton:!0,
+        debug:!1,
+        newestOnTop:!0,
+        progressBar:!0,
+        positionClass:"toast-top-right",
+        preventDuplicates:!0,
+        onclick:null,
+        showDuration:"2000",
+        hideDuration:"1000",
+        extendedTimeOut:"1000",
+        showEasing:"swing",
+        hideEasing:"linear",
+        showMethod:"fadeIn",
+        hideMethod:"fadeOut",
+        tapToDismiss:!1
+    });
+    @endif
     @if ($message = Session::get('gagall'))
     toastr.warning("{{ $message }}","Perhatikan !!", {
         timeOut:5e3,

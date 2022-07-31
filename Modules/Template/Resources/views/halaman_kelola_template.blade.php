@@ -54,7 +54,14 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Kelola Data Template</h4>
-                <a href="{{url('/tambah_template')}}"><button type="button" class="btn btn-primary tambah_pengguna_btn">Tambah Data <span class="btn-icon-right"><i class="fa fa-plus"></i></span> </button></a>
+                {{-- <a href="{{url('/tambah_template')}}"><button type="button" class="btn btn-primary tambah_pengguna_btn">Tambah Data <span class="btn-icon-right"><i class="fa fa-plus"></i></span> </button></a> --}}
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Perbarui template</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{url('/edit_template_verif/'.$verif->id)}}">Verifikasi</a>
+                        <a class="dropdown-item" href="{{url('/edit_template_forgot/'.$forgot->id)}}">Lupa password</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 @if ($template->count() == 0)
@@ -74,20 +81,20 @@
                         <tbody>
                             <?php $number = 1 ?>
                                 <tr>
-                                    <td><strong>{{$number}}</strong></td>
+                                    <td><strong>1</strong></td>
                                     <td>{{$verif->kategori}}</td>
-                                    <td><button type="button" class="btn btn-square btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$verif->id}}">Lihat teks</button></td>
+                                    <td><button type="button" class="btn btn-rounded btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$verif->id}}">Lihat teks</button></td>
                                     <td>
-                                    <a class="btn btn-square btn-primary" href="{{url('/edit_template_verif/'.$verif->id)}}" role="button">Perbarui Template</a>
+                                    <a class="btn btn-rounded btn-primary" href="{{url('/edit_template_verif/'.$verif->id)}}" role="button">Perbarui </a>
                                     </td>
                                     
                                 </tr>
                                 <tr>
-                                    <td><strong>{{$number}}</strong></td>
+                                    <td><strong>2</strong></td>
                                     <td>{{$forgot->kategori}}</td>
-                                    <td><button type="button" class="btn btn-square btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$forgot->id}}">Lihat teks</button></td>
+                                    <td><button type="button" class="btn btn-rounded btn-outline-info mb-2 lihat_isi" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" data-lihat="{{$forgot->id}}">Lihat teks</button></td>
                                     <td>
-                                    <a class="btn btn-square btn-primary" href="{{url('/edit_template_forgot/'.$forgot->id)}}" role="button">Perbarui Template</a>
+                                    <a class="btn btn-rounded btn-primary" href="{{url('/edit_template_forgot/'.$forgot->id)}}" role="button">Perbarui </a>
                                     </td>
                                 </tr>
                             <?php $number++ ?>
@@ -164,7 +171,7 @@
             url: "{{ url('/lihat_isi') }}/" + id,
             method: "GET",
             success:function(response) {
-                console.log(response.isi);
+                // console.log(response.isi);
                 $('#isi_tempat').html(response.isi);
             }
         })

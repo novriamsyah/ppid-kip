@@ -50,6 +50,25 @@ class PermintaanUserController extends Controller
         
     }
 
+    public function lihatDokumen($id)
+    {
+        $doc_lihat = Permintaan::find($id);
+        return response()->json($doc_lihat);
+    }
+
+    public function lihatDokumenkeberatan($id) {
+        $doc_lihat = Keberatan::find($id);
+        return response()->json($doc_lihat);
+    }
+
+    public function dataKeberatan($id)
+    {
+        $kebertan_lihat = DB::table('keberatan_user')
+        ->select('keberatan_user.*',  'permintaan_users.isi',  'permintaan_users.status')
+        ->join('permintaan_users', 'permintaan_users.id','=','keberatan_user.id_permintaan')->where('keberatan_user.id_permintaan', $id)->get();
+        return view('permintaanuser::halaman_keberatan_user', ['kebrtan'=>$kebertan_lihat]);
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -260,9 +279,9 @@ class PermintaanUserController extends Controller
 
         if($simpan) {
             // Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
-            return redirect()->route('user.minta')->with('success', 'kamu berhasil melakukan permohonan keberatan');
+            return redirect()->route('user.minta')->with('success_b', 'kamu berhasil melakukan permintaan keberatan');
         } else {
-            return redirect()->route('tambah.permintaan')->with('fail', 'kamu gagal melakukan permohonan keberatan');
+            return redirect()->route('tambah.permintaan')->with('fail_b', 'kamu gagal melakukan permintaan keberatan');
         }
         } else {
             $keberatan_us = new Keberatan;
@@ -282,9 +301,9 @@ class PermintaanUserController extends Controller
             $simpan = $keberatan_us->save();
         if($simpan) {
             // Session::flash('tersimpan', 'Kamu berhasil mendaftar,  silahkan verifikasi email');
-            return redirect()->route('user.minta')->with('success', 'kamu berhasil melakukan permintaan keberatan');
+            return redirect()->route('user.minta')->with('success_b', 'kamu berhasil melakukan permintaan keberatan');
         } else {
-            return redirect()->route('tambah.permintaan')->with('fail', 'kamu gagal melakukan permintaan keberatan');
+            return redirect()->route('tambah.permintaan')->with('fail_b', 'kamu gagal melakukan permintaan keberatan');
         }
         }
     }

@@ -65,18 +65,24 @@
 				<form action="{{url('/simpan_keberatan')}}" method="POST" enctype="multipart/form-data" name="permintaan_baru_form">
           @csrf
           {{-- <input type="hidden" name="id_permintaan" value="{{$ambil_id}}"> --}}
+                <div class="mb-3">
+                  <label for="recipient-prmntaan" class="col-form-label" style="padding-left: 10px;font-weight:bold">Pilih permintaan</label>
                       <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="id_permintaan" id="permintaan_req">
-                        <option disabled selected>Permintaan</option>
+                        <option disabled selected>-- Pilih Permintaan --</option>
                         @foreach ($ambil_data as $ambil_data2)
                         <option value="{{$ambil_data2->id}}">{{$ambil_data2->isi}}</option>
                         @endforeach
                       </select>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-tjn_ppid" class="col-form-label" style="padding-left: 10px;font-weight:bold">PPID tujuan keberatan informasi</label>
                       <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="ppid_tujuan">
-                        <option disabled selected>PPID Tujuan keberatan informasi</option>
+                        <option disabled selected>-- Pilih PPID tujuan keberatan informasi --</option>
                         @foreach ($tujuan_ppid as $t_ppid)
                         <option value="{{$t_ppid->id}}">{{$t_ppid->tujuan_ppid}}</option>
                         @endforeach
                       </select>
+                </div>
                         <div class=" mb-3 form-check">
                              <input type="checkbox" class="form-check-input checkbox-dikuasakan" id="exampleCheck1" name="dikuasakan">
                             <label class="form-check-label" for="exampleCheck1">Dikuasakan</label>
@@ -86,46 +92,52 @@
                           <h3>Informasi Kuasa</h3>
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="nama_kuasa" id="namaKuasa" rows="3" placeholder="Nama Kuasa"/> 
+                          <input class="form-control" name="nama_kuasa" id="namaKuasa" rows="3" placeholder="Nama Kuasa" style="border: 1px solid #b3b3b3; color:black;"/> 
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="nik_kuasa" id="niKuasa" rows="3" placeholder="NIK Kuasa"/> 
+                          <input class="form-control" name="nik_kuasa" id="niKuasa" rows="3" placeholder="NIK Kuasa" style="border: 1px solid #b3b3b3; color:black;"/> 
                         </div>
                         <div class="mb-3">
-                          <input class="form-control" name="kontak_kuasa" id="kontaKuasa" rows="3" placeholder="Telepon/Fax/Email Kuasa"/> 
+                          <input class="form-control" name="kontak_kuasa" id="kontaKuasa" rows="3" placeholder="Telepon/Fax/Email Kuasa" style="border: 1px solid #b3b3b3; color:black;"/> 
                         </div>
                         <div class="mb-3">
-                          <textarea class="form-control" id="alamatKuasa" rows="3" placeholder="Alamat" name="alamat_kuasa"></textarea>
+                          <textarea class="form-control" id="alamatKuasa" rows="3" placeholder="Alamat" name="alamat_kuasa" style="border: 1px solid #b3b3b3; color:black;"></textarea>
                         </div>
                         <div class="mb-3" style="position: relative">
-                          <p style="word-break: break-word"><span id="docKuasa"></span> </p>
+                          
                           <label for="formFile" class="new-button">Surat Kuasa</label>
                           <input class="form-control skuasa" type="file" id="formFile" name="doc_kuasa">
+                          <p style="word-break: break-word; border-bottom:1px solid #000"><span id="docKuasa"></span> </p>
                       </div>
                         <div class="mb-3" style="position: relative">
-                          <p style="word-break: break-word"><span id="identitasKuasa"></span> </p>
+                          
                           <label for="formFile1" class="new-button1">File Identitas Kuasa</label>
                           <input class="form-control" type="file" id="formFile1" name="identitas_kuasa">
+                          <p style="word-break: break-word; border-bottom:1px solid #000"><span id="identitasKuasa"></span> </p>
                       </div>
                       </div>
-                      <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="alasan">
-                        <option disabled selected>Alasan Keberatan</option>
-                        @foreach ($alasan_keberatan as $alasan)
-                        <option value="{{$alasan->id}}">{{$alasan->alasan_keberatan}}</option>
-                        @endforeach
-                      </select>
+                      <div class="mb-3" style="margin-top:25px">
+                        <label for="recipient-alsn_kbrtn" class="col-form-label" style="padding-left: 10px;font-weight:bold">Alasan Keberatan</label>
+                        <select class="form-select mb-4 rounded-pill" aria-label="Default select example" name="alasan">
+                          <option disabled selected>-- Plih alasan keberatan --</option>
+                          @foreach ($alasan_keberatan as $alasan)
+                          <option value="{{$alasan->id}}">{{$alasan->alasan_keberatan}}</option>
+                          @endforeach
+                        </select>
+                      </div>
                       <div class="mb-3">
-                        <textarea class="form-control" id="exampleFormControlTextarea10" rows="3" placeholder="Alasan Keberatan Detail" name="detail_alasan"></textarea>
+                        <label for="recipient-dt_kbrtn" class="col-form-label" style="padding-left: 10px;font-weight:bold">Detail alasan</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea10" rows="3" name="detail_alasan"  style="border: 1px solid #b3b3b3;"></textarea>
                       </div>
                       <div class="mb-3" style="position: relative">
-                        <p style="word-break: break-word"><span id="dokumen_berat"></span> </p>
                         <label for="formFile2" class="new-button2">File Identitas</label>
                         <input class="form-control" type="file" id="formFile2" name="f_identitas">
+                        <p style="word-break: break-word; border-bottom:1px solid #000"><span id="dokumen_berat"></span> </p>
                       </div>
                       <div class="mb-3" style="position: relative">
-                        <p style="word-break: break-word"><span id="pendukung_berat"></span> </p>
-                          <label for="formFile3" class="new-button3">Dokumen Pendukung</label>
-                          <input class="form-control" type="file" id="formFile3" name="pendukung">
+                        <label for="formFile3" class="new-button3">Dokumen Pendukung</label>
+                        <input class="form-control" type="file" id="formFile3" name="pendukung">
+                        <p style="word-break: break-word; border-bottom:1px solid #000"><span id="pendukung_berat"></span> </p>
                       </div>
                       <div class="text-end">
                           <button type="submit" class="btn rounded-pill" style="background-color:#1474ae;">Simpan</button>
@@ -274,21 +286,61 @@ $(document).on('click', 'input[name=dikuasakan]', function(){
 $(document).ready(function() {
     $("form[name='permintaan_baru_form']").validate({
       rules: {
-        mendapatkan: "required",
-        memperoleh: "required",
+        id_permintaan: "required",
         ppid_tujuan: "required",
-        isi: "required",
-        tujuan: "required",
-        dokumen: "required",
+        nama_kuasa: {
+          required: function(element) {
+            // var cek = $(".checkbox-dikuasakan").val();
+            if($(".checkbox-dikuasakan").is(':checked')){
+              return true;
+            }else {
+              return false; 
+            }
+          }
+        },
+        nik_kuasa: {
+          required: function(element) {
+            // var cek = $(".checkbox-dikuasakan").val();
+            if($(".checkbox-dikuasakan").is(':checked')){
+              return true;
+            }else {
+              return false; 
+            }
+          }
+        },
+        kontak_kuasa: {
+          required: function(element) {
+            if($(".checkbox-dikuasakan").is(':checked')){
+              return true;
+            }else {
+              return false; 
+            }
+          }
+        },
+        alamat_kuasa: {
+          required: function(element) {
+            if($(".checkbox-dikuasakan").is(':checked')){
+              return true;
+            }else {
+              return false; 
+            }
+          }
+        },
+        alasan: "required",
+        detail_alasan: "required",
+        f_identitas: "required",
         pendukung: "required",
         },
         messages: {
-          mendapatkan: "<span style='color: red;'>Cara mendapatkan harus diisi</span>",
-          memperoleh: "<span style='color: red;'>Cara memperoleh harus diisi</span>",
-          ppid_tujuan: "<span style='color: red;'>tujuan PPID tidak boleh kosong</span>",
-          isi: "<span style='color: red;'>isi tidak boleh kosong</span>",
-          tujuan: "<span style='color: red;'>tujuan tidak boleh kosong</span>",
-          dokumen: "<span style='color: red;'>file tidak boleh kosong</span>",
+          id_permintaan: "<span style='color: red;'>Permintaan harus dipilih</span>",
+          ppid_tujuan: "<span style='color: red;'>PPID tujuan informasi keberatan harus diisi</span>",
+          nama_kuasa: "<span style='color: red;'>Nama kuasa tidak boleh kosong</span>",
+          nik_kuasa: "<span style='color: red;'>NIK kuasa tidak boleh kosong</span>",
+          kontak_kuasa: "<span style='color: red;'>Kontak kuasa tidak boleh kosong</span>",
+          alamat_kuasa: "<span style='color: red;'>Alamat kuasa tidak boleh kosong</span>",
+          alasan: "<span style='color: red;'>Alasan keberatan harus diisi</span>",
+          detail_alasan: "<span style='color: red;'>Detail alasan keberatan harus diisi</span>",
+          f_identitas: "<span style='color: red;'>file tidak boleh kosong</span>",
           pendukung: "<span style='color: red;'>file tidak boleh kosong</span>",
 
         },

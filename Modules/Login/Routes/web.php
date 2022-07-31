@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('login')->group(function() {
-    Route::get('/', 'LoginController@index');
+// 
+// Route::prefix('login')->group(function() {
+//     Route::get('/', 'LoginController@index');
    
-});
-Route::post('/verifikasi_user', 'LoginController@verifikasiLogin')->name('login.verifikasi');
+// });
+// Route::post('/verifikasi_user', 'LoginController@verifikasiLogin')->name('login.verifikasi');

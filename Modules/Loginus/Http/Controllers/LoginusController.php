@@ -47,8 +47,7 @@ class LoginusController extends Controller
         ->where('email', $request->email)
         ->first();
 
-        $nama_ambil = $pengguna->nama_lengkap;
-        $id_ambil = $pengguna->id;
+        
 
         // dd($pengguna);
 
@@ -57,6 +56,8 @@ class LoginusController extends Controller
         } else if($pengguna->email_verifikasi == 0) {
             return back()->with('failed', 'Kamu harus verifikasi email');
         } else {
+            $nama_ambil = $pengguna->nama_lengkap;
+            $id_ambil = $pengguna->id;
             if (Hash::check($request->pass, $pengguna->pass)) {
                 $request->session()->put('id', $pengguna->id);
                 $request->session()->put('email', $pengguna->email);

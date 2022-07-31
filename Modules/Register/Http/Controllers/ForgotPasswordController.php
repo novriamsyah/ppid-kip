@@ -102,7 +102,7 @@ class ForgotPasswordController extends Controller
         ])->first();
 
         if(!$ubahPass) {
-            return back()->withInput()->with('error', 'token tidak sesuai');
+            return back()->withInput()->with('error', 'token tidak sesuai atau sudah tidak berlaku');
         }
 
         $updateUser = Register::where('email', $request->email)
@@ -110,7 +110,7 @@ class ForgotPasswordController extends Controller
 
         DB::table('ganti_password')->where(['email'=>$request->email])->delete();
 
-        return redirect('/loginus')->with('message', 'Password kamu berhasil diubah, silahkan login kembali');
+        return redirect('/loginus')->with('sukses_ubah', 'Password kamu berhasil diubah, silahkan login kembali');
     }
 
 }

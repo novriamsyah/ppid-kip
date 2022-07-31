@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('loginus')->group(function() {
+Route::prefix('login')->group(function() {
     Route::get('/', 'LoginusController@index')->name('loginus');
 });
 

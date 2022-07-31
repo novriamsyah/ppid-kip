@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{asset('fron_asset/css/simple-line-icons.css')}}" type="text/css" media="all"/>
     <link rel="stylesheet" href="{{asset('fron_asset/css/style.css')}}" type="text/css" media="all"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{asset('assets/vendor/toastr/css/toastr.min.css')}}">
+<link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
     <!-- Propeller css -->
     <link href="{{asset('fron_asset/css/propeller.min.css')}}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -419,6 +421,9 @@
     <script src="{{asset('fron_asset/js/slick.min.js')}}"></script>
     <script src="{{asset('fron_asset/js/jquery.sticky-sidebar.min.js')}}"></script>
     <script src="{{asset('fron_asset/js/custom.js')}}"></script>
+    <script src="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins-init/sweetalert.init.js')}}"></script>
+    <script src="{{asset('assets/vendor/toastr/js/toastr.min.js')}}"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
       integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
@@ -435,12 +440,12 @@
           lengthMenu: [3,10,15],
         });
       });
-      $(document).ready(function () {
-        $("#myTable2").DataTable({
-          pageLength: 3,
-          lengthMenu: [3,10,15],
-        });
-      });
+      // $(document).ready(function () {
+      //   $("#myTable2").DataTable({
+      //     pageLength: 3,
+      //     lengthMenu: [3,10,15],
+      //   });
+      // });
     </script>
     @yield('script')
   </body>

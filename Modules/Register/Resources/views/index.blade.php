@@ -93,7 +93,7 @@
         </div>
         <div class="text-end">
             <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
-            <a href="{{url('/loginus')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
+            <a href="{{url('/login')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
         </div>
       </form>
   </div>
@@ -187,7 +187,7 @@
     </div>
     <div class="text-end">
         <button type="submit" class="btn " style="background-color:#ba131a ;">Daftar</button>
-        <a href="{{url('/loginus')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
+        <a href="{{url('/login')}}"><button type="button" class="btn " style="color:#ba131a ;">Batal</button></a>            
     </div>
     </form>
   </div>
@@ -508,12 +508,12 @@
         tapToDismiss:!1
     });
     @endif
-    @if ($message = Session::get('tidak_tersimpan'))
-            swal(
-                "Perhatian !!",
-                "{{ $message }}",
-                "warning"
-            )
-    @endif
+    // @if ($message = Session::get('tidak_tersimpan'))
+    //         swal(
+    //             "Perhatian !!",
+    //             "{{ $message }}",
+    //             "warning"
+    //         )
+    // @endif
 </script>
 @endsection

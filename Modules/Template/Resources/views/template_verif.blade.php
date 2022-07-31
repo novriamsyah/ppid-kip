@@ -5,6 +5,22 @@
 <link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
 <style>
+    .komponen{
+        border: solid rgb(247, 114, 114);
+        border-style: dashed;
+        border-radius: 5px;
+    }
+    .komponen .komponen_head {
+        position: absolute;
+        margin-top: -18px;
+        margin-left: 200px;
+        color: white;
+        background: rgb(247, 114, 114);
+        border-radius: 5px;
+        padding: 2px 10px;
+        
+
+    }
 [aria-expanded="false"] > .expanded, [aria-expanded="true"] > .collapsed {
         display: none;
     }
@@ -114,7 +130,12 @@
                                                 <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                                                     <p style="margin: 0;">Halo, Nama Pendaftar</p><br>
                                                    {{-- <p style="background-color: #00A15D; color:#ffffff">{{strip_tags($template->isi)}}</p>  --}}
-                                                   <p>{!! $template->isi !!}</p> 
+                                                    
+                                                   <div class="komponen">
+                                                        <div class="komponen_head">Template Edit</div>
+                                                        <p >{!! $template->isi !!}</p> 
+                                                   </div>
+                                                   
                                                 </td>
                                             </tr>
                                             <tr>

@@ -5,6 +5,28 @@
 <link href="{{ asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 
 <style>
+    .komponen{
+        border: solid rgb(247, 114, 114);
+        border-style: dashed;
+        border-radius: 5px;
+    }
+    .komponen .komponen_head {
+        position: absolute;
+        margin-top: -13px;
+        margin-left: 230px;
+        color: white;
+        background: rgb(247, 114, 114);
+        border-radius: 5px;
+        padding: 2px 10px;
+        
+
+    }
+    .komponen_head p {
+        color:#455056; 
+        font-size:32px;
+        line-height:24px;
+    }
+    
 [aria-expanded="false"] > .expanded, [aria-expanded="true"] > .collapsed {
         display: none;
     }
@@ -115,9 +137,13 @@
                                                             <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">Kamu Meminta Untuk Reset Password</h1>
                                                             <span
                                                                 style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
-                                                            <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                                                            {{-- <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                                 {!!$template->isi!!}
-                                                            </p>
+                                                            </p> --}}
+                                                            <div class="komponen">
+                                                                <div class="komponen_head">Template Edit</div>
+                                                                <p style="font-size:32px;">{!!$template->isi!!}</p> 
+                                                           </div>
                                                             <a href="#"
                                                                 style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset
                                                                 Password</a>

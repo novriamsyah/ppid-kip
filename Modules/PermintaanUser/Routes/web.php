@@ -20,4 +20,6 @@ Route::post('/simpan_permintaan', 'PermintaanUserController@simpanPermintaan');
 Route::get('/simpan_permintaan2', 'PermintaanUserController@simpanPermintaan2');
 Route::post('/getpermintaan', 'PermintaanUserController@getPermintaan')->name('getpermintaan');
 Route::post('/simpan_keberatan', 'PermintaanUserController@simpanKeberatan');
-
+Route::get('/lihat_dokumen/{id}', 'PermintaanUserController@lihatDokumen');
+Route::get('/lihat_keberatan/{id}', 'PermintaanUserController@dataKeberatan');
+Route::get('/lihat_dokumen_keberatan/{id}', 'PermintaanUserController@lihatDokumenkeberatan');
